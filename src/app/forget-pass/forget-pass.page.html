@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Forget password</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-back-button text="" icon="/assets/icons/close.svg" color="dark" class="close-icon">
+            </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-img src="/assets/logo.svg" class="logo"></ion-img>
+    <form #form="ngForm" (ngSubmit)="doForget(form)">
+        <ion-item class="item-input">
+            <ion-label position="floating">Email Address</ion-label>
+            <ion-input clearInput type="email" name="email" ngModel required email></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" size="large" class="big-btn" [disabled]="form.invalid" type="submit">
+            <ion-icon src="/assets/icons/checkmark.svg" slot="start"></ion-icon>
+            Reset your password
+        </ion-button>
+    </form>
+</ion-content>

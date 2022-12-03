@@ -1,0 +1,35 @@
+ion-list.transparent {
+    background: transparent;
+    ion-item {
+        --background: transparent;
+        ion-icon.thumb {
+            margin-right: 20px;
+            text-align: center;
+            line-height: 28px;
+            width: 10px;
+            height: 28px;
+        }
+        ion-label {
+            h3 {
+                color: #24253D;
+                font-size: 17px;
+            }
+            span {
+                color: #808693;
+                font-size: 12px;
+            }
+        }
+        .custom-spinner {
+            display: flex;
+            align-items: center;
+            ion-button {
+                font-size: 24px;
+                ion-icon {}
+            }
+            span.num {
+                font-size: 30px;
+                color: #24253D;
+            }
+        }
+    }
+}

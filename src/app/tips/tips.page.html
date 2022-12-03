@@ -1,0 +1,45 @@
+<ion-header class="safe-area-x-top">
+    <ion-img src="/assets/logo.svg" class="logo"></ion-img>
+</ion-header>
+<ion-content padding>
+    <ion-slides pager="true" class="tips-slider">
+        <ion-slide class="tips-slide">
+            <img src="/assets/slider/tips/slide_1.png" />
+            <h2 class="slide-text">Do you you dream big? we do, we can help you.</h2>
+        </ion-slide>
+
+        <ion-slide class="tips-slide">
+            <img src="/assets/slider/tips/slide_2.png" />
+            <h2 class="slide-text">Global hospitality standards.</h2>
+        </ion-slide>
+
+        <ion-slide class="tips-slide">
+            <img src="/assets/slider/tips/slide_3.png" />
+            <h2 class="slide-text">Millions of global guests.</h2>
+        </ion-slide>
+        <ion-slide class="tips-slide">
+            <img src="/assets/slider/tips/slide_4.png" />
+            <h2 class="slide-text">Step-by-step hosting guide.</h2>
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+<ion-footer class="safe-area-x">
+    <ion-row>
+        <ion-col size="3">
+            <ion-button fill="clear" color="dark" size="large" expand="block" class="big-btn mt-5" routerDirection="forward" (click)="goTo('/tabs/tab1')">
+                Skip
+            </ion-button>
+        </ion-col>
+        <ion-col size="9">
+            <ion-button size="large" expand="block" class="big-btn mt-5 tipsBtn" routerDirection="forward" (click)="goTo('/signup')">
+                <ion-icon slot="start" src="/assets/icons/checkmark.svg"></ion-icon>
+                Create an account
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <p class="after-btn">
+        Already on PropertyStays?
+        <ion-text color="primary" (click)="goTo('/login')">Log In</ion-text>
+    </p>
+</ion-footer>

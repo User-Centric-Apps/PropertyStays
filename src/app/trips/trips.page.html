@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" color="primary" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            My trips
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="calcClasses()" padding>
+    <!-- <ion-item>
+        <ion-label>Trips View</ion-label>
+        <ion-note slot="end">For Demonstration Use only</ion-note>
+        <ion-toggle [(ngModel)]="hasTrips"></ion-toggle>
+    </ion-item> -->
+
+    <div class="trips" *ngIf="savedTrips && hasTrips; else noTrips">
+        <p class="likes-count">upcoming trips</p>
+        <ion-card class="property-item" *ngFor="let item of savedTrips; let i = index">
+            <ion-card-header class="ion-padding">
+                <ion-card-title (click)="tourDetail(item.id, item.st_booking_post_type)">{{ item.title }} - {{ item.check_in }} - {{ item.nights }}
+                </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+                <div class="order-status {{ item.status }}">
+                    Order Status: <span>{{ item.status }}</span>
+                </div>
+                <ion-img [src]="item.image ? item.image : './assets/img/property/no_image.png'" class="image" (click)="tourDetail(item.id, item.st_booking_post_type)"></ion-img>
+                <ion-row>
+                    <ion-col size="6" text-center>
+                        Order Date: <span class="heavy">{{ item.order_date }}</span>
+                    </ion-col>
+                    <ion-col size="6" text-center>
+                        Order Price: <span class="heavy">{{ item.cost }}</span>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6" text-center>
+                        Check-in Date:
+                        <span class="heavy">{{ item.check_in }}</span>
+                    </ion-col>
+                    <ion-col size="6" text-center>
+                        Check-Out Date:
+                        <span class="heavy">{{ item.check_out }}</span>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <ng-template #noTrips>
+        <div class="no-trips">
+            <h1>hmm, no bookings…</h1>
+            <h6>Start planning your first adventure!</h6>
+            <ion-button color="primary" fill="outline" size="large" expand="full" shape="round" class="explore" (click)="goTo('/tabs/tab1')">
+                Explore where!
+            </ion-button>
+        </div>
+    </ng-template>
+</ion-content>

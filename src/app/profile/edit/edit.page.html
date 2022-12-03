@@ -1,0 +1,93 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" router-direction="back" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Profile - Edit
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button router-direction="back" (click)="goBack()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item lines="none" class="profile-header">
+        <ion-label text-wrap>
+            <h2>
+                {{ userFullData?.name }}
+            </h2>
+            <ion-text>
+                <p class="text-second-color text-12">
+                    <ion-icon name="pin" color="medium"></ion-icon>
+                    <span>{{ userFullData?.st_phone }}</span
+          >
+        </p>
+      </ion-text>
+    </ion-label>
+
+    <ion-avatar slot="end">
+      <img [src]="userFullData?.avatar" *ngIf="userFullData?.avatar" />
+      <ion-button (click)="selectImage()" color="primary" class="camera">
+        <ion-icon name="camera"></ion-icon>
+      </ion-button>
+    </ion-avatar>
+  </ion-item>
+
+  <form #form="ngForm" (ngSubmit)="updateProfile(form)">
+    <ion-list class="mr-t-10">
+      <ion-item class="item-input">
+        <ion-label position="floating">Name</ion-label>
+        <ion-input
+          viewInput
+          type="text"
+          [value]="userFullData?.name"
+          name="name"
+          ngModel
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="item-input">
+        <ion-label position="floating">Mobile</ion-label>
+        <ion-input
+          viewInput
+          type="tel"
+          [value]="userFullData?.st_phone"
+          name="st_phone"
+          ngModel
+          required
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="item-input">
+        <ion-label position="floating">Whatsapp</ion-label>
+        <ion-input
+          viewInput
+          type="tel"
+          [value]="userFullData?.whatsapp"
+          name="whatsapp"
+          ngModel
+          required
+        >
+        </ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button
+      expand="block"
+      size="large"
+      class="big-btn big-btn-full mr-t-20"
+      [disabled]="form.invalid"
+      type="submit"
+    >
+      Update
+      <ion-icon src="/assets/icons/checkmark.svg" slot="start"></ion-icon>
+    </ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" color="primary"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            All Locations
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card *ngFor="let city of allLocations" class="city-card" [ngStyle]="{'background-image':'url('+city.image+')', 'background-position':'center'}" (click)="cityDetail(city.id)">
+        <ion-card-content>
+            <div class="text">
+                <h2 class="title">{{city.title}}</h2>
+                <p class="desc">{{city.average}}</p>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

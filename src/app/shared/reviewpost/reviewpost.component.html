@@ -1,0 +1,93 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button type="button" slot="icon-only" fill="clear" (click)="closeModal()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title class="no-margin">Write a review</ion-title>
+
+        <ion-buttons slot="start">
+            <ion-button type="button" slot="icon-only" fill="clear" (click)="closeModal()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item class="item-input">
+            <ion-label position="floating">Review Description</ion-label>
+            <ion-textarea [(ngModel)]="reviewData.content"> </ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rating</ion-label>
+            <ion-icon name="star" [color]="reviewData.rating > 0 ? 'primary' : 'light'" (click)="addStars('rating', 1)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.rating > 1 ? 'primary' : 'light'" (click)="addStars('rating', 2)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.rating > 2 ? 'primary' : 'light'" (click)="addStars('rating', 3)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.rating > 3 ? 'primary' : 'light'" (click)="addStars('rating', 4)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.rating > 4 ? 'primary' : 'light'" (click)="addStars('rating', 5)">
+            </ion-icon>
+        </ion-item>
+        <!--<ion-item>
+            <ion-label>Sleep Rate</ion-label>
+            <ion-icon name="star" [color]="reviewData.sleep > 0 ? 'primary' : 'light'" (click)="addStars('sleep', 1)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.sleep > 1 ? 'primary' : 'light'" (click)="addStars('sleep', 2)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.sleep > 2 ? 'primary' : 'light'" (click)="addStars('sleep', 3)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.sleep > 3 ? 'primary' : 'light'" (click)="addStars('sleep', 4)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.sleep > 4 ? 'primary' : 'light'" (click)="addStars('sleep', 5)">
+            </ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label>Location Rate</ion-label>
+            <ion-icon name="star" [color]="reviewData.location > 0 ? 'primary' : 'light'" (click)="addStars('location', 1)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.location > 1 ? 'primary' : 'light'" (click)="addStars('location', 2)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.location > 2 ? 'primary' : 'light'" (click)="addStars('location', 3)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.location > 3 ? 'primary' : 'light'" (click)="addStars('location', 4)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.location > 4 ? 'primary' : 'light'" (click)="addStars('location', 5)">
+            </ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label>Service Rate</ion-label>
+            <ion-icon name="star" [color]="reviewData.service > 0 ? 'primary' : 'light'" (click)="addStars('service', 1)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.service > 1 ? 'primary' : 'light'" (click)="addStars('service', 2)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.service > 2 ? 'primary' : 'light'" (click)="addStars('service', 3)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.service > 3 ? 'primary' : 'light'" (click)="addStars('service', 4)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.service > 4 ? 'primary' : 'light'" (click)="addStars('service', 5)">
+            </ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-label>Clearness Rate</ion-label>
+            <ion-icon name="star" [color]="reviewData.clearness > 0 ? 'primary' : 'light'" (click)="addStars('clearness', 1)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.clearness > 1 ? 'primary' : 'light'" (click)="addStars('clearness', 2)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.clearness > 2 ? 'primary' : 'light'" (click)="addStars('clearness', 3)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.clearness > 3 ? 'primary' : 'light'" (click)="addStars('clearness', 4)">
+            </ion-icon>
+            <ion-icon name="star" [color]="reviewData.clearness > 4 ? 'primary' : 'light'" (click)="addStars('clearness', 5)">
+            </ion-icon>
+        </ion-item>-->
+    </ion-list>
+    <ion-button expand="block" size="large" class="big-btn" [disabled]="reviewData.title == '' || reviewData.content == ''" (click)="submitReview()">Submit
+    </ion-button>
+</ion-content>

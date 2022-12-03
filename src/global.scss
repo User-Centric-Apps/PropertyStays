@@ -1,0 +1,26 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+.recomended-cities {
+    .swiper-pagination-bullet {
+        opacity: 0.7;
+        width: 10px;
+        height: 10px;
+    }
+    .swiper-pagination-bullet-active {
+        background: #ffffff;
+        opacity: 1;
+        border: 1px solid var(--ion-color-primary);
+    }
+}
+
+.header-ios ion-toolbar:last-child {
+    --border-width: 0;
+}

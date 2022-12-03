@@ -1,0 +1,14 @@
+<ion-content fullscreen>
+    <ion-item lines="none" class="close-fake">
+        <ion-button color="light" fill="clear" (click)="close()">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+        </ion-button>
+    </ion-item>
+    <ion-slides pager="false" [options]="ImageSliderOpts" *ngIf="sliderImages !== null">
+        <ion-slide *ngFor="let image of sliderImages">
+            <div class="swiper-zoom-container">
+                <img [src]="image.image !== null || image.image !== '' ? image.image : './assets/img/property/no_image2.png'" />
+            </div>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

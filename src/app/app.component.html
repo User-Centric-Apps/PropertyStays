@@ -1,0 +1,126 @@
+<ion-app>
+    <ion-split-pane contentId="main-content">
+        <ion-menu class="custom-menu" type="overlay" contentId="main-content">
+            <ion-header>
+                <ion-toolbar class="no-shadow">
+                    <ion-item lines="none" class="menu-profile" *ngIf="logedIn">
+                        <ion-thumbnail slot="start" *ngIf="userData?.profile_pic">
+                            <img [src]="userData?.profile_pic" />
+                        </ion-thumbnail>
+                        <ion-label>
+                            <h3>{{ userData?.user_display_name }}</h3>
+                            <ion-menu-toggle>
+                                <ion-button (click)="pushPage('/tabs/profile')" fill="clear" color="light" size="small">
+                                    <ion-icon slot="start" src="/assets/icon/atoms/edit.svg"></ion-icon>
+                                    View Profile
+                                </ion-button>
+                            </ion-menu-toggle>
+                        </ion-label>
+                    </ion-item>
+                    <ion-buttons slot="end" class="menu-close">
+                        <ion-menu-toggle>
+                            <ion-icon src="/assets/icon/atoms/close.svg"></ion-icon>
+                        </ion-menu-toggle>
+                    </ion-buttons>
+                    <div class="profile-steps" *ngIf="logedIn">
+                        <h3>Property addition </h3>
+                        <ion-progress-bar color="primary" value="0.7"></ion-progress-bar>
+                        <p>
+                            We ask everyone for a few details before travelling or hosting, so get a head by doing it now.
+                        </p>
+                    </div>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content>
+                <ion-list class="menu-pages-list" *ngIf="authService.authenticationState.value">
+                    <ion-menu-toggle *ngFor="let p of menuPages">
+                        <ion-item (click)="pushPage(p.url)" lines="full">
+                            <ion-icon slot="start" src="/assets/icon/atoms/{{ p.icon }}" color="light"></ion-icon>
+                            <ion-label color="light">{{ p.title }}
+                                <span *ngIf="
+                    p.title === 'Inbox' && msgService.allMessages.length > 0
+                  ">({{ msgService.allMessages.length }})</span
+                >
+                <span
+                  *ngIf="
+                    p.title === 'Notifications' &&
+                    notificationsService.notifications.length > 0
+                  "
+                  >({{ notificationsService.notifications.length }})</span
+                >
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle *ngIf="!logedIn">
+            <ion-item (click)="pushPage('/signup')" lines="full">
+              <ion-icon slot="start" name="person-add" color="light"></ion-icon>
+              <ion-label color="light">Register</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list
+          class="menu-pages-list"
+          *ngIf="!authService.authenticationState.value"
+        >
+          <ion-menu-toggle *ngFor="let p of menuNotLogged">
+            <ion-item (click)="pushPage(p.url)" lines="full">
+              <ion-icon
+                slot="start"
+                src="/assets/icon/atoms/{{ p.icon }}"
+                color="light"
+              ></ion-icon>
+              <ion-label color="light"
+                >{{ p.title }}
+                <span
+                  *ngIf="
+                    p.title === 'Inbox' && msgService.allMessages.length > 0
+                  "
+                  >({{ msgService.allMessages.length }})</span
+                >
+                <span
+                  *ngIf="
+                    p.title === 'Notifications' &&
+                    notificationsService.notifications.length > 0
+                  "
+                  >({{ notificationsService.notifications.length }})</span
+                >
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle *ngIf="!logedIn">
+            <ion-item (click)="pushPage('/signup')" lines="full">
+              <ion-icon slot="start" name="person-add" color="light"></ion-icon>
+              <ion-label color="light">Register</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer class="menu-footer">
+        <ion-toolbar *ngIf="logedIn">
+          <ion-menu-toggle>
+            <ion-item lines="none" (click)="logOut()">
+              <ion-icon
+                src="/assets/icon/atoms/logout.svg"
+                color="light"
+                slot="start"
+              ></ion-icon>
+              <ion-label color="light">Log Out</ion-label>
+              <ion-note slot="end" color="light">ver 1.0</ion-note>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-toolbar>
+        <ion-toolbar *ngIf="!logedIn">
+          <ion-menu-toggle>
+            <ion-item lines="none" (click)="pushPage('/login')">
+              <ion-icon name="log-in" color="light" slot="start"></ion-icon>
+              <ion-label color="light">Log In</ion-label>
+              <ion-note slot="end" color="light">ver 1.0</ion-note>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

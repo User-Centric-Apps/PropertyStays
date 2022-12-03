@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" color="primary" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            My listed properties
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="calcClasses()" padding>
+    <!-- <ion-item>
+        <ion-label>Prop View</ion-label>
+        <ion-note slot="end">For Demonstration Use only</ion-note>
+        <ion-toggle [(ngModel)]="hasProp"></ion-toggle>
+    </ion-item> -->
+
+    <div class="prop" *ngIf="hasProp; else noProps">
+        <ion-list lines="none">
+            <ion-item-sliding *ngFor="let item of propItems; let i = index" [disabled]="item.rule == 1" [ngClass]="item.rule == 1 ? 'disabled' : ''">
+                <ion-item>
+                    <ion-card class="property-item" [ngClass]="item.rule == 1 ? 'disabled' : ''">
+                        <ion-card-header>
+                            <ion-card-title>{{ item.title }}</ion-card-title>
+                        </ion-card-header>
+
+                        <ion-card-content>
+                            <img [src]="item.image !== null ? item.image : noImage" class="image" />
+                            <ion-text color="danger" *ngIf="item.rule == 1" class="text-center">
+                                allowed days has been exceeded
+                            </ion-text>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-item>
+
+                <ion-item-options side="end">
+                    <ion-item-option expandable="true" (click)="editProperty(item.id)">
+                        <div class="option-inner">
+                            <ion-icon src="/assets/icons/edit-profile.svg"></ion-icon>
+                            <p>Edit</p>
+                        </div>
+                    </ion-item-option>
+                    <ion-item-option expandable="true" (click)="deleteProperty(item.id)">
+                        <div class="option-inner">
+                            <ion-icon src="/assets/icons/close-light.svg"></ion-icon>
+                            <p>Delete</p>
+                        </div>
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+    </div>
+    <ng-template #noProps>
+        <div class="no-prop">
+            <h1>hmm, no properties listed</h1>
+            <h6>
+                It's quite simple to add a property to your listing, press the button below and we will walk you through it.
+            </h6>
+            <ion-button color="primary" fill="solid" size="large" expand="full" shape="round" class="explore" (click)="goTo('/property/add')">
+                Get Started
+            </ion-button>
+        </div>
+    </ng-template>
+</ion-content>

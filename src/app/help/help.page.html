@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Help
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icon/atoms/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar mode="md" type="search" placeholder="Help Search" animated class="topSearch" (ionInput)="filterTopics($event.target.value)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-segment mode="md" value="host" class="tabs" [(ngModel)]="tabValue">
+        <ion-segment-button mode="md" value="host">
+            <ion-label>Hosting help</ion-label>
+        </ion-segment-button>
+        <ion-segment-button mode="md" value="travel">
+            <ion-label>Traveling help</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <div class="host-topics" *ngIf="tabValue === 'host'; else elseTemplate">
+        <ion-list lines="full" class="topics-list">
+            <ion-list-header>Browse help topics</ion-list-header>
+            <ion-item detail *ngFor="let topic of vhTopics" (click)="viewDetailPage('helpdetail/' + topic.id)" class="has-detail">
+                <ion-label>{{ topic.sub_name }}</ion-label>
+            </ion-item>
+        </ion-list>
+        <!-- <ion-list lines="full" class="topics-list">
+            <ion-list-header>All topics</ion-list-header>
+            <ion-item detail *ngFor="let topic of allTopics" (click)="viewDetailPage('detail')">
+                <ion-label>{{topic.title}}</ion-label>
+            </ion-item>
+        </ion-list> -->
+    </div>
+
+    <ng-template #elseTemplate>
+        <div class="travel-topics">
+            <ion-list lines="full" class="topics-list">
+                <ion-list-header>Browse help topics</ion-list-header>
+                <ion-item detail *ngFor="let topic of vtTopics" (click)="viewDetailPage('helpdetail/' + topic.id)" class="has-detail">
+                    <ion-label>{{ topic.sub_name }}</ion-label>
+                </ion-item>
+            </ion-list>
+            <!-- <ion-list lines="full" class="topics-list">
+                <ion-list-header>All topics</ion-list-header>
+                <ion-item detail *ngFor="let topic of allTopics" (click)="viewDetailPage('detail')">
+                    <ion-label>{{topic.title}}</ion-label>
+                </ion-item>
+            </ion-list> -->
+        </div>
+    </ng-template>
+</ion-content>
+
+<ion-footer class="contact">
+    <ion-item lines="none">
+        <ion-label>Still need help?</ion-label>
+        <ion-button color="primary" slot="end" class="white-text normal-text no-radius no-shadow" (click)="goToFeedback()">
+            Contact Us
+        </ion-button>
+    </ion-item>
+</ion-footer>

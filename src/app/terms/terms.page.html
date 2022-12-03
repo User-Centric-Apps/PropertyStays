@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="goBack()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ terms?.title }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding >
+        <p [innerHTML]="terms?.description"></p>
+</ion-content>

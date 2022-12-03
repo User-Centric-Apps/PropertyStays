@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" color="primary" icon="arrow-back"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">
+            About PropertyStays
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="app-info">
+        <img src="/assets/logo.svg" class="logo" />
+        <p class="version">Version 1.0</p>
+        <p class="update">
+            Your app version is up to date
+            <ion-icon name="checkmark-circle" color="primary"></ion-icon>
+        </p>
+    </div>
+    <div class="app-actions">
+        <ion-grid class="ion-no-padding">
+            <ion-row>
+                <ion-col class="ion-no-padding" size="6">
+                    <ion-button fill="clear" expand="full" color="dark">
+                        <ion-icon name="star" slot="start" color="warning"></ion-icon>
+                        Rate this app
+                    </ion-button>
+                </ion-col>
+                <ion-col class="ion-no-padding" size="6">
+                    <ion-button fill="clear" expand="full" color="dark" (click)="shareApp()">
+                        <ion-icon name="share" slot="start" color="dark"></ion-icon>
+                        Share this app
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <div class="desc ion-padding-horizontal">
+        <div *ngIf="appAbout?.image" style="margin-top:30px;">
+            <img [src]="appAbout?.image" width="100%" >
+        </div>
+        <p [innerHtml]="appAbout?.description"></p>
+    </div>
+    <div class="social ion-padding-horizontal">
+        <h6 class="follow">Follow us</h6>
+        <ion-grid class="ion-no-padding">
+            <ion-row>
+                <ion-col *ngFor="let social of socialNetworks">
+                    <ion-button fill="clear" expand="full" [href]="social.url">
+                        <ion-icon src="{{social.icon}}" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

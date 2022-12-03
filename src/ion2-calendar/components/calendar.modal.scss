@@ -1,0 +1,33 @@
+:host {
+    ion-select {
+        max-width: unset;
+        .select-icon>.select-icon-inner,
+        .select-text {
+            color: #fff !important;
+        }
+        &.select-ios {
+            max-width: unset;
+        }
+    }
+    .calendar-page {
+        background-color: transparent;
+    }
+    .month-box {
+        display: inline-block;
+        width: 100%;
+        padding-bottom: 0;
+        border-bottom: 1px solid rgba(241, 241, 241, 0.25);
+    }
+    h4 {
+        font-weight: 600;
+        font-size: 18px;
+        display: block;
+        text-align: left;
+        padding-left: 20px;
+        margin: 8px 0 5px;
+        color: #627790;
+    }
+    .toolbar-background {
+        background: transparent !important;
+    }
+}

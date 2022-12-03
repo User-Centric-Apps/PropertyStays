@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Sign In</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button text="" color="primary"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-back-button text="" icon="/assets/icons/close.svg" color="dark" class="close-icon">
+            </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-img src="/assets/logo.svg" class="logo"></ion-img>
+    <div class="content-icon">
+        <ion-img src="/assets/icons/AtomsLockIcon.svg" class="lock-icon"></ion-img>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="doLogin(form)">
+        <ion-item class="item-input">
+            <ion-label position="floating">Username</ion-label>
+            <ion-input clearInput type="text" name="username" ngModel required [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input viewInput [type]="showPass ? 'text' : 'password'" type="password" name="password" ngModel required [(ngModel)]="password">
+            </ion-input>
+            <ion-icon [name]="showPass ? 'eye' : 'eye-off'" slot="end" class="show-pass" [ngClass]="showPass ? 'active' : ''" (click)="togglePass()"></ion-icon>
+        </ion-item>
+
+        <ion-grid class="ion-no-padding">
+            <ion-row>
+                <ion-col size="12"> <!--[size]="canFPA ? 10 : 12"-->
+                    <ion-button expand="block" size="large" class="big-btn" [disabled]="form.invalid" type="submit">
+                        <ion-icon src="/assets/icons/checkmark.svg" slot="start"></ion-icon>
+                        Sign In
+                    </ion-button>
+                </ion-col>
+                <!--<ion-col size="2" *ngIf="canFPA">
+                    <ion-button expand="block" size="large" class="big-btn fp-login" (click)="FPLogin()">
+                        <ion-icon name="finger-print" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </ion-col>-->
+            </ion-row>
+        </ion-grid>
+    </form>
+    <p class="after-btn" (click)="goTo('/forget-pass')">Forgot your password?</p>
+
+    <!-- <div class="divider">
+        <span>OR</span>
+    </div>
+    <p text-center>Sign In with</p>
+    <ion-button expand="block" size="large" class="big-btn facebook" (click)="facebookLogin()">
+        <ion-icon name="logo-facebook"></ion-icon>
+        Facebook
+    </ion-button>
+    <ion-button expand="block" size="large" class="big-btn google" routerDirection="forward">
+        <ion-icon name="logo-google"></ion-icon>
+        Google
+    </ion-button> -->
+</ion-content>

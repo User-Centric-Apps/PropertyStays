@@ -1,0 +1,98 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button type="button" slot="icon-only" fill="clear" (click)="closeModal()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title class="no-margin">Filters</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="p-features h-scroll">
+        <ion-list lines="none" class="ver-list">
+            <ion-list-header>
+                Property Type ({{ propTypeArr?.length }})
+            </ion-list-header>
+
+            <div class="scrollX">
+                <ion-slides pager="false" [options]="optionsSlider" class="auto-width">
+                    <ion-slide *ngFor="let option of propTypeArr">
+                        <ion-item>
+                            <ion-label>{{ option.title }}</ion-label>
+                            <ion-checkbox value="{{ option.id }}" (click)="setPropType(option.id, $event)"></ion-checkbox>
+                        </ion-item>
+                    </ion-slide>
+                </ion-slides>
+            </div>
+        </ion-list>
+    </div>
+
+    <div class="p-features h-scroll">
+        <ion-list lines="none" class="ver-list">
+            <ion-list-header>
+                Suitable For ({{ propSuitable?.length }})
+            </ion-list-header>
+
+            <div class="scrollX">
+                <ion-slides pager="false" [options]="optionsSlider" class="auto-width">
+                    <ion-slide *ngFor="let option of propSuitable">
+                        <ion-item>
+                            <ion-label>{{ option.title }}</ion-label>
+                            <ion-checkbox value="{{ option.id }}" (click)="setSuitableFor(option.id, $event)"></ion-checkbox>
+                        </ion-item>
+                    </ion-slide>
+                </ion-slides>
+            </div>
+        </ion-list>
+    </div>
+
+    <div class="p-features h-scroll">
+        <ion-list lines="none" class="ver-list">
+            <ion-list-header>
+                Features ({{ propAmenities?.length }})
+            </ion-list-header>
+
+            <div class="scrollX">
+                <ion-slides pager="false" [options]="optionsSlider" class="auto-width">
+                    <ion-slide *ngFor="let option of propAmenities">
+                        <ion-item>
+                            <ion-label>{{ option.title }}</ion-label>
+                            <ion-checkbox value="{{ option.id }}" (click)="addAmenity(option.id, $event)"></ion-checkbox>
+                        </ion-item>
+                    </ion-slide>
+                </ion-slides>
+            </div>
+        </ion-list>
+    </div>
+
+    <!-- <div class="p-destance h-scroll">
+
+        <ion-list lines="none" class="range">
+
+            <ion-list-header>
+                Distance
+            </ion-list-header>
+
+            <ion-item>
+                <ion-range [(ngModel)]="knobValues" min="0" max="10000" color="primary" dualKnobs="true" step="500">
+                    <ion-label slot="start">0km</ion-label>
+                    <ion-label slot="end">10,000km</ion-label>
+                </ion-range>
+            </ion-item>
+            <p class="destance">Distance range: <span>{{knobValues.lower}}km - {{knobValues.upper}}km</span></p>
+
+
+
+        </ion-list>
+
+    </div> -->
+</ion-content>
+
+<ion-footer>
+    <ion-button type="button" color="primary" expand="full" (click)="applyFilters()">
+        Apply Filters
+    </ion-button>
+</ion-footer>

@@ -1,0 +1,41 @@
+ion-footer {
+    padding-bottom: 10px;
+    background: #fff;
+    text-align: center;
+    align-items: center;
+    &:before {
+        display: none;
+    }
+    ion-img {
+        width: 170px;
+        align-self: center;
+        display: block;
+        margin: 0 auto 30px;
+    }
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+}
+
+ion-item.payment-method {
+    --detail-icon-color: var(--ion-color-primary);
+    --detail-icon-opacity: 1;
+    ion-badge {
+        font-size: 25px;
+        padding: 0;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        ion-icon {
+            color: #fff;
+            --color: #fff;
+        }
+    }
+    ion-icon.payment-icon {
+        font-size: 40px;
+        margin: 0;
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button type='button' slot="icon-only" fill="clear" (click)="closeModal()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title class="no-margin">Who is travelling?</ion-title>
+
+        <ion-buttons slot="start">
+            <ion-button type='button' fill="clear" (click)="clearTravellers()">
+                Clear
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-list lines="full" class="transparent">
+        <ion-item>
+            <ion-icon src="/assets/icons/adult.svg" slot="start" class="thumb"></ion-icon>
+            <ion-label text-wrap>
+                <h3>Adults</h3>
+                <span>16+ years</span>
+            </ion-label>
+            <div class="custom-spinner">
+                <ion-button class="min" shape="round" fill="clear" (click)="decrease('adult')" [disabled]="adultsNum < 2">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </ion-button>
+                <span class="num">{{adultsNum}}</span>
+                <ion-button class="min" shape="round" fill="clear" (click)="increase('adult')">
+                    <ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-item>
+
+        <!-- <ion-item>
+            <ion-icon src="/assets/icons/teen.svg" slot="start" class="thumb"></ion-icon>
+            <ion-label text-wrap>
+                <h3>Teens</h3>
+                <span>12-15 years</span>
+            </ion-label>
+            <div class="custom-spinner">
+                <ion-button class="min" shape="round" fill="clear" (click)="decrease('teen')" [disabled]="teensNum < 1">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </ion-button>
+                <span class="num">{{teensNum}}</span>
+                <ion-button class="min" shape="round" fill="clear" (click)="increase('teen')">
+                    <ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-item> -->
+
+        <ion-item>
+            <ion-icon src="/assets/icons/child.svg" slot="start" class="thumb"></ion-icon>
+            <ion-label text-wrap>
+                <h3>Children</h3>
+                <span>2-11 years</span>
+            </ion-label>
+            <div class="custom-spinner">
+                <ion-button class="min" shape="round" fill="clear" (click)="decrease('child')" [disabled]="childsNum < 1">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </ion-button>
+                <span class="num">{{childsNum}}</span>
+                <ion-button class="min" shape="round" fill="clear" (click)="increase('child')">
+                    <ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-item>
+
+        <!-- <ion-item>
+            <ion-icon src="/assets/icons/infant.svg" slot="start" class="thumb"></ion-icon>
+            <ion-label text-wrap>
+                <h3>Infants</h3>
+                <span>under 2 years</span>
+            </ion-label>
+            <div class="custom-spinner">
+                <ion-button class="min" shape="round" fill="clear" (click)="decrease('infant')" [disabled]="infantsNum < 1">
+                    <ion-icon name="remove-circle"></ion-icon>
+                </ion-button>
+                <span class="num">{{infantsNum}}</span>
+                <ion-button class="min" shape="round" fill="clear" (click)="increase('infant')">
+                    <ion-icon name="add-circle"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-item> -->
+    </ion-list>
+
+</ion-content>
+
+<ion-footer>
+    <ion-button type='button' color="primary" expand="full" (click)="confirmTravellers()">
+        Confirm traveller(s)
+    </ion-button>
+</ion-footer>

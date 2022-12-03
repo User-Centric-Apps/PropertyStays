@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-back-button defaultHref="tabs/tab1" color="dark" icon="/assets/icons/close.svg"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Notifications
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- <ion-item>
+        <ion-label>Notifications View</ion-label>
+        <ion-note slot="end">For Demonstration Use only</ion-note>
+        <ion-toggle [(ngModel)]="hasNotifications"></ion-toggle>
+    </ion-item> -->
+
+    <div class="notifications" *ngIf="notificationsService.notifications.length > 0; else noNotifications">
+        <ion-list lines="none">
+            <ion-item class="notification" *ngFor="let item of notificationsService.notifications; let i = index">
+                <ion-icon src="/assets/icons/house_black.svg" slot="start" color="primary"></ion-icon>
+                <ion-label class="ion-text-wrap" [innerHTML]="item.content">
+                </ion-label>
+                <ion-button color="primary" fill="clear" shape="round" class="remove" slot="end" (click)="removeItem(i, item.id)">
+                    <ion-icon src="/assets/icons/close_black.svg" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ng-template #noNotifications>
+        <div class="no-notifications">
+            <div class="centered">
+                <ion-img src="/assets/img/undraw_order_confirmed.svg"></ion-img>
+                <h5 text-center>You’re all caught up!</h5>
+                <p text-center>You have no notifications.</p>
+            </div>
+        </div>
+    </ng-template>
+</ion-content>
+<ion-footer>
+    <ion-img src="/assets/logo.svg"></ion-img>
+</ion-footer>

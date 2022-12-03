@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" router-direction="back" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Your Details
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button router-direction="back" (click)="goBack()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-slides pager="false" [options]="slideOpts" #inputsSlider>
+        <ion-slide>
+
+            <ion-list class="inputs-list">
+                <ion-list-header>
+                    <p class="text-second-color text-14">
+                        Enter your address details.
+                    </p>
+                </ion-list-header>
+                <ion-item class="item-input">
+                    <ion-label position="floating">Full Name</ion-label>
+                    <ion-input clearInput type="text"></ion-input>
+                </ion-item>
+                <ion-item class="item-input">
+                    <ion-label position="floating">Street Address</ion-label>
+                    <ion-input viewInput type="text"></ion-input>
+                </ion-item>
+                <ion-item class="item-input">
+                    <ion-label position="floating">Apt/Suite etc</ion-label>
+                    <ion-input viewInput type="text"></ion-input>
+                </ion-item>
+                <ion-item class="item-input">
+                    <ion-label position="floating">City</ion-label>
+                    <ion-input viewInput type="text"></ion-input>
+                </ion-item>
+                <ion-item class="item-input">
+                    <ion-label position="floating">Postal Code/Zip</ion-label>
+                    <ion-input viewInput type="text"></ion-input>
+                </ion-item>
+                <ion-item class="item-input">
+                    <ion-label position="floating">Country</ion-label>
+                    <ion-input viewInput type="text"></ion-input>
+                </ion-item>
+                <ion-button expand="block" size="large" class="big-btn-full mr-t-20" (click)="continue()">Continue
+                </ion-button>
+            </ion-list>
+
+
+        </ion-slide>
+
+
+        <ion-slide>
+
+            <ion-list class="inputs-list">
+                <ion-list-header>
+                    <p class="text-second-color text-14">
+                        Enter information related to bank transfer payments.
+                    </p>
+                </ion-list-header>
+                <ion-item class="item-input">
+                    <ion-label position="floating">IBAN number</ion-label>
+                    <ion-input clearInput type="text"></ion-input>
+                </ion-item>
+                <ion-item class="item-input">
+                    <ion-label position="floating">SWIFT ID</ion-label>
+                    <ion-input clearInput type="text"></ion-input>
+                </ion-item>
+                <ion-button expand="block" size="large" class="big-btn-full mr-t-20" (click)="save()">Verify account
+                </ion-button>
+            </ion-list>
+
+
+        </ion-slide>
+    </ion-slides>
+
+
+
+
+</ion-content>

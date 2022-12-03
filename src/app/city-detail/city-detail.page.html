@@ -1,0 +1,158 @@
+<ion-header class="transparent over-slider" [ngClass]="{'header-white': scrollPosition > 220}">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button [color]="scrollPosition > 220 ? 'primary' : 'light'"></ion-back-button>
+        </ion-buttons>
+        <ion-title *ngIf="scrollPosition > 220">{{locationData?.title}}</ion-title>
+        <ion-buttons slot="end">
+            <!-- <ion-button fill="clear" [color]="scrollPosition > 220 ? 'primary' : 'light'">
+                    <ion-icon name="share" slot="icon-only"></ion-icon>
+                </ion-button> -->
+            <!-- <ion-button fill="clear" [color]="scrollPosition > 220 ? 'primary' : 'light'" (click)="toggleFav()">
+                <ion-icon [name]="locationData?.isInFavorite === 0 ? 'heart-empty' : 'heart'" slot="icon-only"></ion-icon>
+            </ion-button> -->
+            <ion-button fill="clear" [color]="scrollPosition > 220 ? 'primary' : 'light'" (click)="imagesViewer()">
+                <ion-icon name="photos" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="under-header" (ionScroll)="scroll($event)" [scrollEvents]="true">
+    <ion-slides pager="true" class="prop-images has-overlay" [options]="ImageSliderOpts">
+        <ion-slide *ngFor="let image of locationData?.images" [ngStyle]="image.image !== null ? {'background-image': 'url('+image.image+')'} : {'background-image':'url(/assets/img/property/no_image.png)'}">
+            <img [src]="image !== null || image !== '' ? image : './assets/img/property/no_image.png'">
+        </ion-slide>
+    </ion-slides>
+    <div class="slide-data">
+        <h3>{{locationData?.title}}</h3>
+        <!-- <div class="rating">
+            <ion-icon *ngIf="locationData.rate_review > 0" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="locationData.rate_review > 1" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="locationData.rate_review > 2" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="locationData.rate_review > 3" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="locationData.rate_review > 4" name="star" color="warning"></ion-icon>
+        </div> -->
+    </div>
+    <div class="description">
+        <h3>{{locationData?.title}}</h3>
+        <div [innerHTML]="locationData?.content"></div>
+    </div>
+
+    <div class="top-exp" *ngIf="locationData?.places && locationData?.places != null && locationData?.places !=''">
+        <ion-item class="cat-row mr-t-30">
+            <ion-label>Places to stay </ion-label>
+            <!--<ion-button slot="end" color="primary" fill="clear">See All
+                <ion-icon name="arrow-forward" align-self-center></ion-icon>
+            </ion-button>-->
+        </ion-item>
+        <ion-list lines="none" class="top-city-view">
+            <ion-item *ngFor="let hotel of locationData?.places; let i = index">
+                <ion-grid class="top-prop">
+                    <ion-row align-items-center class="dsf">
+                        <ion-col size="5" class="no-padding">
+                            <div class="featured" *ngIf="hotel?.featured == 1">Featured</div>
+                            <ion-img (click)="rentalDetail(hotel.id)" src="{{hotel.image}}"></ion-img>
+                            <ion-button class="like-me" fill="clear" (click)="toggleFavProp($event, hotel.id, i)">
+                                <ion-icon [name]="hotel.isInFavorite === 0 ? 'heart-empty' : 'heart'" slot="icon-only">
+                                </ion-icon>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col size="7" class="padding-left">
+                            <ion-row>
+                                <ion-col size="12" class="no-padding">
+                                    <h3 class="title">{{hotel.title}}</h3>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row >
+                                <ion-col size="4" *ngIf="hotel?.adults">
+                                    <div class="zindalft">
+                                        <img src="/assets/icon/ppl.svg" />
+                                    </div>
+                                    <div class="zindaright">
+                                        <strong class="heavy">{{ hotel?.adults }}</strong>
+                                    </div>
+                                </ion-col>
+                                <ion-col size="4" *ngIf="hotel?.bed">
+                                    <div class="zindalft">
+                                        <img src="/assets/icon/rooms.svg" />
+                                    </div>
+                                    <div class="zindaright">
+                                        <strong class="heavy">{{ hotel?.bed }}</strong>
+                                    </div>
+                                </ion-col>
+                                <ion-col size="4" *ngIf="hotel?.bath">
+                                    <div class="zindalft">
+                                        <img src="/assets/icon/bath.svg" />
+                                    </div>
+                                    <div class="zindaright">
+                                        <strong class="heavy">{{ hotel?.bath }}</strong>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="12" class="no-padding">
+                                    <h3 class="title price">{{hotel.price}}</h3>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row class="desc">
+                                <ion-col size="12" align-self-top noPadding>
+                                    <div *ngIf="hotel.rating == 0">
+                                        <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                        <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                        <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                        <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                        <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    </div>
+                                    <ion-icon name="star" color="primary" *ngIf="hotel.rating > 0">
+                                    </ion-icon>
+                                    <ion-icon name="star" color="primary" *ngIf="hotel.rating > 1">
+                                    </ion-icon>
+                                    <ion-icon name="star" color="primary" *ngIf="hotel.rating > 2">
+                                    </ion-icon>
+                                    <ion-icon name="star" color="primary" *ngIf="hotel.rating > 3">
+                                    </ion-icon>
+                                    <ion-icon name="star" color="primary" *ngIf="hotel.rating > 4">
+                                    </ion-icon>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row align-items-center class="pdbtn">
+                                <ion-col size="12" class="no-padding ion-text-right">
+                                    <ion-button class="book-now" (click)="rentalDetail(hotel.id)">
+                                        Check Availability
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="hotels-map" *ngIf="cityLocation?.lat !== '' && cityLocation?.lng !== '' && cityLocation?.lat && cityLocation?.lng">
+        <ion-item class="cat-row">
+            <ion-label>Listing on the map</ion-label>
+        </ion-item>
+        <div *ngIf="cityLocation?.lat !== '' && cityLocation?.lng !== ''" id="map_canvas"></div>
+    </div>
+    <div class="top-exp" *ngIf="locationData?.tours && locationData?.tours != null && locationData?.tours !=''">
+        <ion-item class="cat-row mr-t-10">
+            <ion-label>Top experiences</ion-label>
+            <!--<ion-button slot="end" color="primary" fill="clear">See All
+                <ion-icon name="arrow-forward" align-self-center></ion-icon>
+            </ion-button>-->
+        </ion-item>
+        <div class="flex-gallery">
+            <div class="pin" *ngFor="let exp of locationData?.tours" (click)="tourDetail(exp.id)">
+                <ion-img src="{{exp.image}}"></ion-img>
+                <span>{{exp.title}}</span>
+            </div>
+        </div>
+    </div>
+</ion-content>
+<!-- <ion-footer class="has-submit">
+    <ion-button color="primary" expand="full" class="white-text">
+        Book a trip
+    </ion-button>
+</ion-footer> -->

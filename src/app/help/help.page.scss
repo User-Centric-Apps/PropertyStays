@@ -1,0 +1,25 @@
+ion-searchbar.topSearch {
+    padding: 0 20px;
+    input.searchbar-input,
+    .searchbar-input,
+    .searchbar-input.sc-ion-searchbar-md {
+        border-radius: 20px;
+        box-shadow: none;
+        border: 1px solid var(--ion-color-light-shade);
+    }
+}
+
+.header-ios {
+    ion-toolbar:last-child {
+        --border-width: 0;
+    }
+}
+
+ion-item.has-detail {
+    --detail-icon-color: var(--ion-color-primary);
+    --detail-icon-opacity: 1;
+}
+
+ion-list-header {
+    text-transform: none;
+}

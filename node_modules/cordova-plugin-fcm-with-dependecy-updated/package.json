@@ -1,0 +1,66 @@
+{
+  "_from": "cordova-plugin-fcm-with-dependecy-updated@^4.1.1",
+  "_id": "cordova-plugin-fcm-with-dependecy-updated@4.6.4",
+  "_inBundle": false,
+  "_integrity": "sha512-GwCCzIM4+qKSC9IMc956xPt10d7kUvSYetCN3TqfbolitRM8431K3Sc8r/Kfu1WATD0D+CJwNBStfYMbkCmsKg==",
+  "_location": "/cordova-plugin-fcm-with-dependecy-updated",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-fcm-with-dependecy-updated@^4.1.1",
+    "name": "cordova-plugin-fcm-with-dependecy-updated",
+    "escapedName": "cordova-plugin-fcm-with-dependecy-updated",
+    "rawSpec": "^4.1.1",
+    "saveSpec": null,
+    "fetchSpec": "^4.1.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-fcm-with-dependecy-updated/-/cordova-plugin-fcm-with-dependecy-updated-4.6.4.tgz",
+  "_shasum": "6975fe7a1dea19aab0c867b927e49457ea8bb933",
+  "_spec": "cordova-plugin-fcm-with-dependecy-updated@^4.1.1",
+  "_where": "C:\\mobile\\centric",
+  "author": {
+    "name": "André Augusto Tissot"
+  },
+  "bugs": {
+    "url": "https://github.com/andrehtissot/cordova-plugin-fcm-with-dependecy-updated/issues"
+  },
+  "bundleDependencies": false,
+  "cordova_name": "Cordova FCM Push Plugin",
+  "deprecated": false,
+  "description": "Google Firebase Cloud Messaging Cordova Push Plugin fork with dependecy updated",
+  "engines": [],
+  "englishdoc": "",
+  "homepage": "https://github.com/andrehtissot/cordova-plugin-fcm-with-dependecy-updated#readme",
+  "issue": "",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "notifications",
+    "push",
+    "firebase",
+    "fcm",
+    "ios",
+    "android",
+    "cordova"
+  ],
+  "license": "MIT",
+  "main": "www/FCMPlugin.js",
+  "name": "cordova-plugin-fcm-with-dependecy-updated",
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "repo": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrehtissot/cordova-plugin-fcm-with-dependecy-updated.git"
+  },
+  "typings": "src/FCMPlugin.d.ts",
+  "version": "4.6.4"
+}

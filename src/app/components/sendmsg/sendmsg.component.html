@@ -1,0 +1,14 @@
+<div class="send-message" *ngIf="!msgSent; else success">
+    <ion-textarea [(ngModel)]="message" #newMsgArea2 placeholder="Write your message here" autofocus="true" rows="6">
+    </ion-textarea>
+    <ion-item lines="none">
+        <ion-button expand="block" color="primary" slot="end" (click)="send()" class="white-text" [disabled]="message === ''">
+            Send
+        </ion-button>
+        <ion-button color="medium" fill="clear" slot="start" (click)="cancel()"> Cancel
+        </ion-button>
+    </ion-item>
+</div>
+<ng-template #success>
+    <ion-text color="primary" text-center> Message Sent </ion-text>
+</ng-template>

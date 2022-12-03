@@ -1,0 +1,130 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" color="primary"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            My saved properties/location
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="savedCount < 1 ? 'empty' : ''" padding *ngIf="!isLoading">
+    <!-- <ion-item>
+        <ion-label>Likes View</ion-label>
+        <ion-note slot="end">For Demonstration Use only</ion-note>
+        <ion-toggle [(ngModel)]="hasLikes"></ion-toggle>
+    </ion-item> -->
+
+    <div class="liked" *ngIf="savedCount > 0; else noLikes">
+        <p class="likes-count">{{ savedCount }} places saved</p>
+        <ion-card class="property-item" *ngFor="let item of savedRentals; let i = index">
+            <ion-card-header>
+                    <div class="featured" *ngIf="item?.featured == 1">Featured</div>
+                    <ion-button class="like-me" fill="clear" (click)="removeLike(i, item.property_id)">
+                        <ion-icon name="heart" slot="icon-only" color="primary"></ion-icon>
+                    </ion-button>
+                </ion-card-header>
+
+            <ion-card-content>
+                <img [src]="
+            item.image !== null
+              ? item.image
+              : '/assets/img/property/no_image.png'
+          " class="prop-images" (click)="viewDetai(item.property_id)" />
+                <ion-grid class="prop-details">
+                        <ion-row>
+
+                            <ion-col size="12">
+
+                                
+                    <ion-card-title (click)="rentalDetail(item.id)">{{item.title}}</ion-card-title>
+
+                            </ion-col>
+
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" *ngIf="rental?.adults">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/ppl.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.adults }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="rental?.bed">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/rooms.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.bed }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="rental?.bath">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/bath.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.bath }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12" class="no-padding-bot">
+                                <h3 class="price"> {{item.price}} / per night</h3>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="noPadding-col">
+                            <ion-col size="7" align-self-top noPadding>
+                                <div *ngIf="item.rating == 0">
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                </div>
+                                <ion-icon name="star" color="primary" *ngIf="item.rating > 0">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="item.rating > 1">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="item.rating > 2">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="item.rating > 3">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="item.rating > 4">
+                                </ion-icon>
+
+                                <h5 class="reviews">
+                                    {{item.reviews}} reviews
+                                </h5>
+              </ion-col>
+              <ion-col size="5" class="right">
+                <ion-button
+                  class="status available"
+                  (click)="viewDetai(item.property_id)"
+                  >Check Availability
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <ng-template #noLikes>
+        <div class="no-likes">
+            <h1>hmm, nothing here…</h1>
+            <h6>Start planning your first adventure!</h6>
+            <ion-button color="primary" fill="outline" size="large" expand="full" shape="round" class="explore" (click)="backHome()">
+                Explore where!
+            </ion-button>
+        </div>
+    </ng-template>
+</ion-content>

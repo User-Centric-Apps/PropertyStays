@@ -1,0 +1,213 @@
+<ion-header class="transparent over-slider" [ngClass]="{'header-white': scrollPosition > 220}">
+    <ion-toolbar>
+        <ion-buttons slot="start" class="havy">
+            <ion-back-button color="primary" class="trn" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title *ngIf="scrollPosition > 220" (click)="shareThis()">{{tourData?.title}}</ion-title>
+        <ion-buttons slot="end">
+            <!-- <ion-button fill="clear" [color]="scrollPosition > 220 ? 'primary' : 'light'">
+                <ion-icon name="share" slot="icon-only"></ion-icon>
+            </ion-button> 
+            <ion-button fill="clear" [color]="scrollPosition > 220 ? 'primary' : 'light'" (click)="toggleFav()">
+                <ion-icon [name]="tourData?.isInFavorite === 0 ? 'heart-empty' : 'heart'" slot="icon-only"></ion-icon>
+            </ion-button> -->
+            
+            <ion-button fill="clear" class="havy" color="primary" (click)="openSelect()">
+                <ion-icon name="share" slot="icon-only"></ion-icon>
+                <ion-select interface="action-sheet" class="sss" [(ngModel)]="social" #mySelect (ionChange)="shareSocialNw()" style="display: none;">
+                    <ion-select-option value="1">Share via Facebook</ion-select-option>
+                    <ion-select-option value="2">Share via Twitter</ion-select-option>
+                    <ion-select-option value="3">Share via Whatsapp</ion-select-option>
+                    <ion-select-option value="4">Share via Instagram</ion-select-option>
+                    <ion-select-option value="5">Share via Email</ion-select-option>
+                </ion-select>
+            </ion-button>
+            <ion-button fill="clear" class="havy" color="primary" (click)="imagesViewer()">
+                <ion-icon name="photos" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="under-header" (ionScroll)="scroll($event)" [scrollEvents]="true">
+    <ion-slides pager="true" class="prop-images has-overlay" [options]="ImageSliderOpts">
+        <ion-slide *ngFor="let image of tourData?.images" [ngStyle]="image.image !== null ? {'background-image': 'url('+image.image+')'} : {'background-image':'url(/assets/img/property/no_image.png)'}">
+            <!-- <img [src]="image !== null || image !== '' ? image : './assets/img/property/no_image.png'"> -->
+        </ion-slide>
+    </ion-slides>
+    <div class="slide-data">
+    <div class="featured" *ngIf="tourData?.featured == 1">Featured</div>
+        <h3>{{tourData?.title}}</h3>
+
+        <div class="rating" *ngIf="tourData?.rating > 0">
+            <ion-icon *ngIf="tourData?.rating > 0" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="tourData?.rating > 1" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="tourData?.rating > 2" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="tourData?.rating > 3" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="tourData?.rating > 4" name="star" color="warning"></ion-icon>
+        </div>
+        <div class="rating" *ngIf="tourData?.rating == 0">
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+        </div>
+    </div>
+
+    <div class="prop-detail">
+        <ion-row>
+            <ion-col size="9" class="prop-data">
+                <ion-item lines="none">
+                    <ion-label text-wrap>
+                        <ion-text>
+                            <h3 class="type">
+                                <span *ngIf="tourData?.tour_type"> 
+                                    Type : {{ tourData?.tour_type }}
+                                </span>
+                                <span>
+                                    | Area : {{ tourData?.cityname }}
+                                </span>
+                            </h3>
+                        </ion-text>
+                        <ion-text >
+                            <h3 class="type" *ngIf="tourData?.adults">
+                                <span *ngIf="tourData?.adults"> 
+                                    Adults : {{ tourData?.adults }}
+                                </span>  
+                                <span *ngIf="tourData?.children">
+                                    | Children : {{ tourData?.children }}
+                                </span>  
+                                <span *ngIf="tourData?.infant">
+                                    | Infant : {{ tourData?.infant }}
+                                </span>
+                            </h3>
+                        </ion-text>
+                        <ion-text>
+                            <h3 class="type">
+                                <span *ngIf="tourData?.duration"> 
+                                    Duration : {{ tourData?.duration }}
+                                </span>
+                            </h3>
+                        </ion-text>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="3" class="owner">
+                <ion-item lines="none">
+                    <ion-avatar class="owner-img" *ngIf="tourData?.owner['image']">
+                        <img src="{{ tourData?.owner['image'] }}" />
+                    </ion-avatar>
+                </ion-item>
+                <p class="owner-name">By {{tourData?.owner['name']}}</p>
+            </ion-col>
+        </ion-row>
+    </div>
+
+    <!-- <div class="features">
+        <ion-row>
+            <ion-col size="7">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/house.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap><span class="heavy">{{tourData?.type}}</span> {{tourData?.size}} sq. ft.</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="5">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/rooms.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap>Bedrooms: <span class="heavy">{{tourData?.bedrooms}}</span></ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row> 
+        <ion-row>
+            <ion-col size="7">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/people.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap>Beds: <span class="heavy">{{tourData?.beds}}</span></ion-label>
+                </ion-item>
+            </ion-col> 
+            <ion-col size="12">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/min-stay.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap><span class="heavy">{{tourData?.minimum}}</span></ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </div>-->
+
+    <!--<div class="aminities" *ngIf="tourData?.amenities.lenght > 0" [ngClass]="expand ? 'expanded' : 'collapsed'">
+        <div class="aminities-toggle" (click)="toggleExpand()">
+            <p>+{{aminiteisCount}}</p>
+        </div>
+        <ion-row>
+            <ion-col size="3" *ngFor="let aminity of tourData?.amenities" class="aminity">
+                <ion-icon src="/assets/icon/bed.svg"></ion-icon>
+                <p class="name">{{aminity.name}}</p>
+            </ion-col>
+        </ion-row>
+    </div>-->
+
+    <div class="reviews">
+        <ion-item class="nopadding" lines="none" detail>
+            <ion-badge slot="start" color="primary">{{tourData?.rating}}</ion-badge>
+            <ion-label>{{tourData?.reviews}}</ion-label>
+            <ion-note slot="end" color="primary" (click)="presentReviews()">{{tourData?.reviews}}</ion-note>
+        </ion-item>
+    </div>
+
+    <div class="description">
+        <div class="content" [innerHTML]="tourData?.content" [ngClass]="descMore ? 'expanded' : 'collapsed'"></div>
+        <div class="more" (click)="toggleDesc()">
+            <span>{{descMoreText}}</span>
+        </div>
+    </div>
+
+    <div class="description" *ngIf="tourData?.tour_included">
+        <strong>Tour Included :</strong>
+        <div class="content" [innerHTML]="tourData?.tour_included" ></div>
+    </div>
+
+    <div class="description" *ngIf="tourData?.tour_excluded">
+        <strong>Tour Excluded :</strong>
+        <div class="content" [innerHTML]="tourData?.tour_excluded" ></div>
+    </div>
+
+    <div class="description" *ngIf="tourData?.tour_highlight">
+        <strong>Tour Highlight :</strong>
+        <div class="content" [innerHTML]="tourData?.tour_highlight" ></div>
+    </div>
+
+    <div *ngIf="tourData?.positions.lat !== '' && tourData?.positions.lng !== ''" id="map_canvas" #map_canvas class="map-canvas"></div>
+
+    <!--<div class="featured" *ngIf="tourData?.tours.length > 0">
+        <ion-item class="cat-row">
+            <ion-label>Things to do near this home</ion-label>
+        </ion-item>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let tour of tourData?.tours">
+                    <ion-card class="prop-grid-item">
+                        <ion-card-content>
+                            <ion-img src="{{tour.image}}"></ion-img>
+                            <h3 class="title">{{tour.title}}</h3>
+                            <h4 class="price">{{tour.price}}</h4>
+                            <div class="rating">
+                                <ion-icon *ngIf="rental.rate_review > 0" name="star" size="small" color="primary"></ion-icon>
+                                    <ion-icon *ngIf="rental.rate_review > 1" name="star" size="small" color="primary"></ion-icon>
+                                    <ion-icon *ngIf="rental.rate_review > 2" name="star" size="small" color="primary"></ion-icon>
+                                    <ion-icon *ngIf="rental.rate_review > 3" name="star" size="small" color="primary"></ion-icon>
+                                    <ion-icon *ngIf="rental.rate_review > 4" name="star" size="small" color="primary"></ion-icon>
+                                {{tour.reviews}}
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>-->
+</ion-content>
+<ion-footer>
+    <ion-button color="primary" size="large" class="big-btn white-text" expand="block" round (click)="bookNow()">
+        Reserve
+    </ion-button>
+</ion-footer>

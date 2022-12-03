@@ -1,0 +1,455 @@
+<ion-header class="" [ngClass]="{'has-bg': !isLoading, 'no-search': hideSearch, 'hideSearch': hideSearch}">
+    <ion-toolbar class="trans">
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="assets/icon/atoms/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+        <ion-title> </ion-title>
+        <ion-buttons slot="start" *ngIf="isSearching">
+            <ion-button (click)="clearSearch()" color="primary">
+                <ion-icon name="arrow-round-back" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-img slot="start" src="assets/logo.svg" class="logo"> </ion-img>
+    </ion-toolbar>
+    <ion-toolbar class="has-controls hidable" *ngIf="!isLoading" [ngClass]="{'hideSearch': hideSearch}">
+        <ion-item class="toolbar_item">
+            <ionic-selectable #searchComponent [(ngModel)]="locSearch" [items]="allLocs" itemValueField="id" itemTextField="title" [canSearch]="true" (onChange)="locChange($event)" placeholder="Where to?" [canClear]="true" (onClear)="searchClear($event)">
+            </ionic-selectable>
+        </ion-item>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="4">
+                    <ion-button [fill]="dateSelected ? 'solid' : 'outline'" color="light" expand="block" class="toolbar-button" (click)="openCalendar()">
+                        <ion-icon src="/assets/icon/atoms/calender.svg" slot="start"></ion-icon>
+                        Your Dates
+                        <!-- <ion-icon *ngIf="dateSelected" name="checkmark" color="primary" slot="end"></ion-icon> -->
+                    </ion-button>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-button [fill]="travellersSelected ? 'solid' : 'outline'" color="light" expand="block" class="toolbar-button" (click)="travellersModal()">
+                        <ion-icon src="/assets/icon/atoms/traveller.svg" slot="start"></ion-icon>
+                        Travellers
+                        <!-- <ion-icon *ngIf="travellersSelected" name="checkmark" color="primary" slot="end"></ion-icon> -->
+                    </ion-button>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-button [fill]="filtersSelected ? 'solid' : 'outline'" color="light" expand="block" class="toolbar-button" (click)="filtersModal()">
+                        <ion-icon src="/assets/icon/atoms/filter.svg" slot="start"></ion-icon>
+                        Filters
+                        <!-- <ion-icon *ngIf="filtersSelected" name="checkmark" color="primary" slot="end"></ion-icon> -->
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content *ngIf="!isLoading" (ionScroll)="scroll($event)" [scrollEvents]="true"> -->
+<ion-content *ngIf="!isLoading" (ionScroll)="scroll($event)" [scrollEvents]="true">
+    <div class="not-searching" *ngIf="!isSearching; else searching">
+        <div class="recomended">
+            <ion-item class="cat-row" (click)="goTo('tabs/tab1/locations')">
+                <ion-label>Recommended for you</ion-label>
+                <ion-button slot="end" color="primary" fill="clear">See All
+                    <ion-icon name="arrow-forward" align-self-center></ion-icon>
+                </ion-button>
+            </ion-item>
+            <ion-slides pager="true" [options]="RecSliderOpts" class="recomended-cities" id="mainSlider">
+                <ion-slide *ngFor="let city of recomendedLocs">
+                    <ion-card class="city-card" [ngStyle]="city.image == null || city.image == '' || city.image == 'null' || !city.image ? {'background-image':'url(/assets/img/property/no_image.png)'} : {'background-image':'url('+city.image+')'}" (click)="cityDetail(city.id)">
+                        <ion-card-content>
+                            <div class="text">
+                                <h2 class="title">{{city.title}}</h2>
+                                <p class="desc">{{city.average}}</p>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-slide>
+            </ion-slides>
+        </div>
+
+        <div class="banner" >
+            <a href="{{url}}"><ion-img src="/assets/img/bannerhost.png" class="banner"></ion-img></a>
+        </div>
+
+        <div class="last-deals">
+            <ion-item class="cat-row">
+                <ion-label>Last Mintute Deals</ion-label>
+                <ion-button slot="end" color="primary" fill="clear" (click)="doSearch('lastseen')">See All
+                    <ion-icon name="arrow-forward" align-self-center></ion-icon>
+                </ion-button>
+            </ion-item>
+
+            <ion-card class="property-item" *ngFor="let rental of lastMinRent; let i = index">
+                <ion-card-header>
+                    <div class="featured" *ngIf="rental?.featured == 1">Featured</div>
+                    <ion-button class="like-me" fill="clear" (click)="toggleFav($event, rental.id, i)">
+                        <ion-icon [name]="rental.isInFavorite === 0 ? 'heart-empty' : 'heart'" slot="icon-only">
+                        </ion-icon>
+                    </ion-button>
+                </ion-card-header>
+
+                <ion-card-content (click)="rentalDetail(rental.id)">
+                    <ion-slides pager="true" [options]="ImageSliderOpts" class="prop-images" *ngIf="rental.images !== null; else noImagesLast">
+                        <ion-slide *ngFor="let image of rental.images" [ngStyle]="image !== null ? {'background-image': 'url('+image+')'} : {'background-image':'url(/assets/img/property/no_image.png)'}">
+                            <img [src]="image ? image : './assets/img/property/no_image.png'" />
+                        </ion-slide>
+                    </ion-slides>
+                    <ng-template #noImagesLast>
+                        <ion-img class="no-image-place" src="/assets/img/property/no_image.png"></ion-img>
+                    </ng-template>
+
+                    <ion-grid class="prop-details">
+                        <ion-row>
+
+                            <ion-col size="12">
+
+                                
+                    <ion-card-title (click)="rentalDetail(rental.id)">{{rental.title}}</ion-card-title>
+
+                            </ion-col>
+
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" *ngIf="rental?.adults">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/ppl.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.adults }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="rental?.bed">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/rooms.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.bed }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="rental?.bath">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/bath.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.bath }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12" class="no-padding-bot">
+                                <h3 class="price"> {{rental.price}} / per night</h3>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="noPadding-col">
+                            <ion-col size="7" align-self-top noPadding>
+                                <div *ngIf="rental.rating == 0">
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                </div>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 0">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 1">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 2">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 3">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 4">
+                                </ion-icon>
+
+                                <h5 class="reviews">
+                                    {{rental.reviews}} reviews
+                                    <span *ngIf="rental.reviews > 0">- {{rental.review_desc}}</span>
+                                </h5>
+              </ion-col>
+              <ion-col size="5" class="right">
+                <ion-button
+                  class="status available"
+                  (click)="rentalDetail(rental.id)"
+                  >Check Availability
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div class="featured">
+      <ion-item class="cat-row">
+        <ion-label>Homes around the world</ion-label>
+        <ion-button slot="end" color="primary" fill="clear" (click)="doSearch('world')"
+          >See All
+          <ion-icon name="arrow-forward" align-self-center></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let rentalArround of fromArround">
+            <ion-card
+              class="prop-grid-item"
+              (click)="rentalDetail(rentalArround.id)"
+            >
+              <ion-card-content>
+                <img
+                  [src]="rentalArround.image ? rentalArround.image : './assets/img/property/no_image.png'"
+                />
+                <h3 class="title">{{rentalArround.title}}</h3>
+                <h4 class="price">{{rentalArround.price}} per night</h4>
+                <div class="rating smallRating">
+                  <div class="stars">
+                    <ion-icon
+                      name="star"
+                      color="primary"
+                      *ngIf="rentalArround.rating > 0"
+                    >
+                    </ion-icon>
+                    <ion-icon
+                      name="star"
+                      color="primary"
+                      *ngIf="rentalArround.rating > 1"
+                    >
+                    </ion-icon>
+                    <ion-icon
+                      name="star"
+                      color="primary"
+                      *ngIf="rentalArround.rating > 2"
+                    >
+                    </ion-icon>
+                    <ion-icon
+                      name="star"
+                      color="primary"
+                      *ngIf="rentalArround.rating > 3"
+                    >
+                    </ion-icon>
+                    <ion-icon
+                      name="star"
+                      color="primary"
+                      *ngIf="rentalArround.rating > 4"
+                    >
+                    </ion-icon>
+                  </div>
+                  {{rentalArround.reviews}} reviews
+                  <span *ngIf="rentalArround.reviews > 0"
+                    >- {{rentalArround.review_desc}}</span
+                  >
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="app-features">
+      <h2 class="sec-title">
+        Travel with
+        <span class="site"
+          >Property<ion-text color="primary">Stays.com</ion-text>
+        </span>
+                                    </h2>
+                                    <ion-list>
+                                        <ion-item lines="none">
+                                            <ion-text>
+                                                <h3>
+                                                    <ion-icon name="rocket"></ion-icon> Fast & secure
+                                                </h3>
+                                                <p>
+                                                    Our hosts are decated to provding you the best service available
+                                                </p>
+                                            </ion-text>
+                                        </ion-item>
+                                        <ion-item lines="none">
+                                            <ion-text>
+                                                <h3>
+                                                    <ion-icon name="aperture"></ion-icon> Satisfaction guarantee
+                                                </h3>
+                                                <p>
+                                                    We return money within 30 days
+
+                                                </p>
+                                            </ion-text>
+                                        </ion-item>
+                                        <ion-item lines="none">
+                                            <ion-text>
+                                                <h3>
+                                                    <ion-icon name="call"></ion-icon> 24/7 customer support
+                                                </h3>
+                                                <p>
+                                                    Friendly 24/7 customer support
+                                                </p>
+                                            </ion-text>
+                                        </ion-item>
+                                        <ion-item lines="none">
+                                            <ion-text>
+                                                <h3>
+                                                    <ion-icon name="card"></ion-icon> Secure online payment
+                                                </h3>
+                                                <p>
+                                                    We possess SSL / Secure сertificate
+                                                </p>
+                                            </ion-text>
+                                        </ion-item>
+                                    </ion-list>
+        </div>
+
+        <div class="top-exp">
+            <ion-item class="cat-row">
+                <ion-label>Top Experiences</ion-label>
+                <ion-button slot="end" color="primary" fill="clear" (click)="goTo('tabs/tab1/alltours')">See All
+                    <ion-icon name="arrow-forward" align-self-center></ion-icon>
+                </ion-button>
+            </ion-item>
+            <ion-grid class="top-prop">
+                <ion-row align-items-center *ngFor="let tour of topExp">
+                    <ion-col size="6">
+                        <ion-img (click)="tourDetail(tour.id)" [src]="tour.image ? tour.image : './assets/img/property/no_image.png'"></ion-img>
+                    </ion-col>
+                    <ion-col size="6">
+                        <h3 class="title">{{tour.title | slice:0:15}}</h3>
+                        <p class="desc">{{tour.description | slice:0:50}}...</p>
+                        <ion-button class="book-now" (click)="tourDetail(tour.id)">
+                            Book for  {{tour.price}}
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+
+    <ng-template #searching>
+        <!-- <ion-button color="primary" (click)="clearSearch()">
+            <ion-icon name="close-circle" slot="end"></ion-icon>
+            Clear Search
+        </ion-button> -->
+        <ion-label class="ion-padding">Properties found:
+            <ion-text color="primary"> {{ searchItems.length }} </ion-text>
+        </ion-label>
+        <ion-card class="property-item" *ngIf="searchItems.length == 0">
+            <ion-card-content>
+                <ion-grid class="prop-details ">
+                    <ion-row>
+
+                        <ion-col size="12" class="ion-text-left ion-pad">
+
+                            Sorry your search for <strong>{{ travellers.adults }}</strong> Adult(s) <strong>{{ travellers.childs }}</strong> child did not find a property to accommodate all travelers, Please amend the number of travelers to find properties.
+
+                        </ion-col>
+
+                    </ion-row>
+
+                </ion-grid>
+
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="property-item" *ngFor="let rental of searchItems; let i = index">
+                <ion-card-header>
+                    <div class="featured" *ngIf="rental?.featured == 1">Featured</div>
+                    <ion-button class="like-me" fill="clear" (click)="toggleFavProp($event, rental.id, i)">
+                        <ion-icon [name]="rental.isInFavorite === 0 ? 'heart-empty' : 'heart'" slot="icon-only">
+                        </ion-icon>
+                    </ion-button>
+                </ion-card-header>
+
+            <ion-card-content (click)="rentalDetail(rental.id)">
+
+                <ion-slides pager="true" [options]="ImageSliderOpts" class="prop-images" *ngIf="rental.image && rental.image != null">
+                    <ion-slide [ngStyle]="rental.image !== null ? {'background-image': 'url('+rental.image+')'} : {'background-image':'url(/assets/img/property/no_image.png)'}">
+                        <img [src]="rental.image ? rental.image : './assets/img/property/no_image.png'" />
+                    </ion-slide>
+                </ion-slides>
+
+                <img src="/assets/img/property/no_image.png" *ngIf="!rental.image || rental.image == null" />
+                <ion-grid class="prop-details ">
+                        <ion-row>
+
+                            <ion-col size="12">
+
+                                
+                    <ion-card-title (click)="rentalDetail(rental.id)">{{rental.title}}</ion-card-title>
+
+                            </ion-col>
+
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" *ngIf="rental?.adults">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/ppl.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.adults }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="rental?.bed">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/rooms.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.bed }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="rental?.bath">
+                                <div class="zindalft">
+                                    <img src="/assets/icon/bath.svg" width="36" />
+                                </div>
+                                <div class="zindaright">
+                                    <ion-label class="ion-text-wrap"><strong class="heavy">{{ rental?.bath }}</strong>
+                                    </ion-label>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12" class="no-padding-bot">
+                                <h3 class="price"> {{rental.price}} / per night</h3>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="noPadding-col">
+                            <ion-col size="7" align-self-top noPadding>
+                                <div *ngIf="rental.rating == 0">
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                    <ion-icon name="star-outline" color="primary" ></ion-icon>
+                                </div>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 0">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 1">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 2">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 3">
+                                </ion-icon>
+                                <ion-icon name="star" color="primary" *ngIf="rental.rating > 4">
+                                </ion-icon>
+
+                                <h5 class="reviews">
+                                    {{rental.reviews}} reviews
+                                    <span *ngIf="rental.reviews > 0">- {{rental.review_desc}}</span>
+                                </h5>
+              </ion-col>
+              <ion-col size="5" class="right">
+                <ion-button
+                  class="status available"
+                  (click)="rentalDetail(rental.id)"
+                  >Check Availability
+                </ion-button>
+              </ion-col>
+            </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </ng-template>
+</ion-content>

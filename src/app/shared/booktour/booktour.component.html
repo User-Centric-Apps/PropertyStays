@@ -1,0 +1,123 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Book ({{ rental_title }})</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-slides pager="false" [options]="sliderOpts" #stepsSlider>
+        <ion-slide>
+            <h1>Booking Details for {{ rental_title }}</h1>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Date From</ion-label>
+                        <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="bookingService.dateFrom" value="{{ bookingService.dateFrom }}" min="{{ bookingService.dateFromMin }}" (ionChange)="bookingService.fromChanged()">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Date To</ion-label>
+                        <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="bookingService.dateTo" value="{{ bookingService.dateTo }}" min="{{ bookingService.dateToMin }}"></ion-datetime>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-button color="primary" slot="start" class="spinner-btn white-text" (click)="spinnerMin('adults')" [disabled]="this.bookingService.adults == 1">
+                            <ion-icon name="remove" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button color="primary" slot="end" class="spinner-btn white-text" (click)="spinnerPlus('adults')">
+                            <ion-icon name="add" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-label position="floating">Adults</ion-label>
+                        <ion-input [(ngModel)]="bookingService.adults" type="number"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-button color="primary" slot="start" class="spinner-btn white-text" (click)="spinnerMin('children')" [disabled]="this.bookingService.children == 0">
+                            <ion-icon name="remove" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button color="primary" slot="end" class="spinner-btn white-text" (click)="spinnerPlus('children')">
+                            <ion-icon name="add" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-label position="floating">Children</ion-label>
+                        <ion-input [(ngModel)]="bookingService.children" type="number"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep('getPrice')">
+                Book Now
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+        <ion-slide>
+            <h1>Booking Submission</h1>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">First Name</ion-label>
+                        <ion-input [(ngModel)]="first_name" type="text"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input [(ngModel)]="user_email" type="email"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Phone</ion-label>
+                        <ion-input [(ngModel)]="st_phone" type="tel"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Special Requirements</ion-label>
+                        <ion-textarea [(ngModel)]="specialReq" rows="3" class="small-textarea"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep('checkOut')">
+                Checkout
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+        <ion-slide>
+            <ion-icon name="checkmark-circle" color="success" class="done-icon"></ion-icon>
+            <h3>
+                {{ first_name }}, <!--Thank you your payment was successful!-->
+            </h3>
+            <p>Booking details has been sent to {{ user_email }}</p>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="closeModal()">
+                Done
+                <ion-icon name="checkmark" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

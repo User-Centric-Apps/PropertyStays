@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" color="primary"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Messages {{ msgService.allMessages.length }} </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="messages" *ngIf="msgService.allMessages.length > 0; else noMessages">
+        <ion-list lines="none">
+            <ion-item *ngFor="let message of msgService?.allMessages" (click)="goTo('/message/' + message.id)">
+                <ion-avatar slot="start">
+                    <img [src]="wpApiService.userProfile.avatar" />
+                    <img [src]="message.sender_avatar" />
+                </ion-avatar>
+                <ion-label>
+                    <h6>Me & {{ message.sender_name }}</h6>
+                    <p>{{ message.content }}</p>
+                </ion-label>
+                <ion-note slot="end">{{ message.date }}</ion-note>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ng-template #noMessages>
+        <div class="no-messages">
+            <div class="centered">
+                <ion-img src="/assets/img/undraw_order_confirmed.svg"></ion-img>
+                <h5 text-center>You’re all caught up!</h5>
+                <p text-center>You have no messages.</p>
+            </div>
+        </div>
+    </ng-template>
+</ion-content>

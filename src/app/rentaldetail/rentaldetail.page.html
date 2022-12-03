@@ -1,0 +1,200 @@
+<ion-header class="transparent over-slider" [ngClass]="{ 'header-white': scrollPosition > 220 }">
+    <ion-toolbar>
+        <ion-buttons slot="start" class="havy">
+            <ion-back-button color="primary" class="trn" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title *ngIf="scrollPosition > 220" (click)="shareThis()">{{ rentalData?.title }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button fill="clear" class="havy" [color]="scrollPosition > 220 ? 'primary' : 'light'" (click)="openSelect()">
+                <ion-icon name="share" slot="icon-only"></ion-icon>
+                <ion-select interface="action-sheet" class="sss" [(ngModel)]="social" #mySelect (ionChange)="shareSocialNw()" style="display: none;">
+                <ion-select-option value="1">Share via Facebook</ion-select-option>
+                <ion-select-option value="2">Share via Twitter</ion-select-option>
+                <ion-select-option value="3">Share via Whatsapp</ion-select-option>
+                <ion-select-option value="4">Share via Instagram</ion-select-option>
+                <ion-select-option value="5">Share via Email</ion-select-option>
+                </ion-select>
+            </ion-button>
+            <ion-button fill="clear" class="havy" (click)="toggleFav()" [color]="scrollPosition > 220 ? 'primary' : 'light'">
+                <ion-icon [name]="rentalData?.isInFavorite === 0 ? 'heart-empty' : 'heart'" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" class="havy" [color]="scrollPosition > 220 ? 'primary' : 'light'" (click)="imagesViewer()">
+                <ion-icon name="photos" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="under-header" >
+    <ion-slides pager="true" class="prop-images has-overlay" [options]="ImageSliderOpts" *ngIf="rentalData?.images !== null; else noImages">
+        <ion-slide *ngFor="let img of rentalData?.images" [ngStyle]="img.image !== null ? {'background-image': 'url('+img.image+')'} : {'background-image':'url(/assets/img/property/no_image.png)'}">
+            <img [src]="
+          img.image !== null || img.image !== ''
+            ? img.image
+            : './assets/img/property/no_image2.png'
+        " />
+        </ion-slide>
+    </ion-slides>
+    <ng-template #noImages>
+        <ion-slides pager="false" class="prop-images has-overlay" [options]="ImageSliderOpts">
+            <ion-slide>
+                <img src="./assets/img/property/no_image2.png" />
+            </ion-slide>
+        </ion-slides>
+    </ng-template>
+    <div class="slide-data">
+    <div class="featured" *ngIf="rentalData?.featured == 1">Featured</div>
+        <h3>{{ rentalData?.title }}</h3>
+
+        <div class="rating">
+            <ion-icon *ngIf="rentalData?.rating > 0" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="rentalData?.rating > 1" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="rentalData?.rating > 2" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="rentalData?.rating > 3" name="star" color="warning"></ion-icon>
+            <ion-icon *ngIf="rentalData?.rating > 4" name="star" color="warning"></ion-icon>
+        </div>
+    </div>
+
+    <div class="prop-detail">
+        <ion-row>
+            <ion-col size="9" class="prop-data">
+                <ion-item lines="none">
+                    <ion-label text-wrap>
+                        <p class="location">{{ rentalData?.location }}</p>
+                        <ion-text>
+                            <p class="price">{{ rentalData?.price }} / per night</p>
+                        </ion-text>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="3" class="owner">
+                <div class="avvatr">
+                    <ion-avatar class="owner-img" *ngIf="(rentalData?.owner)['image']">
+                        <img src="{{ (rentalData?.owner)['image'] }}" />
+                    </ion-avatar>
+                </div>
+                <div class="chatb">
+                    <ion-icon name="chatboxes" (click)="sendMessage($event)"></ion-icon>
+                </div>
+                <p class="owner-name">{{ (rentalData?.owner)['name'] }}</p>
+            </ion-col>
+        </ion-row>
+    </div>
+
+    <div class="features">
+        <ion-row class="ion-text-center">
+            <ion-col size="6" *ngIf="rentalData?.size">
+                <img src="/assets/icons/Amenities/house.svg" width="28" style="float: left;">
+                <p class="name" style="    float: left;
+    margin-left: 10px;
+    margin-top: 8px;">House: <strong>{{ rentalData?.size }} sq. ft.</strong></p>
+            </ion-col>
+
+            <ion-col size="6" *ngIf="rentalData?.bedrooms">
+                <img src="/assets/icons/Amenities/bed.svg" width="28" style="float: left;">
+                <p class="name" style="    float: left;
+    margin-left: 10px;
+    margin-top: 8px;">Bedrooms: <strong>{{ rentalData?.bedrooms }}</strong></p>
+            </ion-col>
+            <ion-col size="6" *ngIf="rentalData?.adults">
+                <img src="/assets/icons/Amenities/people.svg" width="28" style="float: left;">
+                <p class="name" style="    float: left;
+    margin-left: 10px;
+    margin-top: 8px;">Sleeps: <strong>{{ rentalData?.adults }}</strong></p>
+            </ion-col>
+            <ion-col size="6" *ngIf="rentalData?.bath">
+                <img src="/assets/icons/Amenities/min-stay.svg" width="28" style="float: left;">
+                <p class="name" style="    float: left;
+    margin-left: 10px;
+    margin-top: 8px;">Minimum Stay : <strong>1 night</strong></p>
+            </ion-col>
+            <!--<ion-col size="3" class="sydd" *ngIf="rentalData?.adults">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/ppl.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap>
+                        <span class="heavy">{{ rentalData?.adults }}</span></ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="3" class="sydd" *ngIf="rentalData?.bedrooms">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/rooms.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap>
+                        <span class="heavy">{{ rentalData?.bedrooms }}</span></ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="3" class="sydd" *ngIf="rentalData?.bath">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/bath.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap>
+                        <span class="heavy">{{ rentalData?.bath }}</span></ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size="4" class="sydd" *ngIf="rentalData?.maximum_days">
+                <ion-item lines="none" class="nopadding">
+                    <ion-icon src="/assets/icon/min-stay.svg" slot="start"></ion-icon>
+                    <ion-label text-wrap>Maximum Days:
+                        <span class="heavy">{{ rentalData?.maximum_days }}</span></ion-label>
+                </ion-item>
+            </ion-col>-->
+        </ion-row>
+    </div>
+
+    <div class="aminities" [ngClass]="expand ? 'expanded' : 'collapsed'" *ngIf="rentalData?.amenities">
+        <div class="aminities-toggle" (click)="toggleExpand()" *ngIf="aminiteisCount > 6">
+            <p>+{{ aminiteisCount - 5 }}</p>
+        </div>
+        <ion-row>
+            <ion-col size="2" *ngFor="let aminity of rentalData?.amenities" class="aminity">
+                <img [src]="aminity.icon !== '' ? aminity.icon : '/assets/icon/bed.svg'" />
+                <p class="name">{{ aminity.name }}</p>
+            </ion-col>
+        </ion-row>
+    </div>
+
+    <div class="reviews">
+        <ion-item class="nopadding" lines="none" detail>
+            <ion-badge slot="start" color="primary">{{ rentalData?.rating }}
+            </ion-badge>
+            <ion-label>{{ rentalData?.review_desc }}</ion-label>
+            <ion-note slot="end" color="primary" (click)="presentReviews()">{{ rentalData?.reviews_count }} reviews
+            </ion-note>
+        </ion-item>
+    </div>
+
+    <div class="description">
+        <div class="content" [innerHTML]="rentalData?.content" [ngClass]="descMore ? 'expanded' : 'collapsed'"></div>
+        <div class="more" (click)="toggleDesc()">
+            <span>{{ descMoreText }}</span>
+        </div>
+    </div>
+
+    <div *ngIf="rentalLocation?.lat !== '' && rentalLocation?.lng !== ''" id="map_canvas" #map_canvas class="map-canvas"></div>
+
+    <!--<div class="featured" *ngIf="rentalData?.tours.length > 0">
+        <ion-item class="cat-row">
+            <ion-label>Things to do near this home</ion-label>
+        </ion-item>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let tour of rentalData?.tours">
+                    <ion-card class="prop-grid-item">
+                        <ion-card-content>
+                            <ion-img src="{{ tour.image }}"></ion-img>
+                            <h3 class="title">{{ tour.title }}</h3>
+                            <h4 class="price">{{ tour.price }}</h4>
+                            <div class="rating">
+                                {{ tour.reviews }}
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>-->
+</ion-content>
+
+<ion-footer>
+    <ion-button color="primary" size="large" class="big-btn white-text" expand="block" round (click)="bookNow()">
+        Check Availability
+    </ion-button>
+</ion-footer>

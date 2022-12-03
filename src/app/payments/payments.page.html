@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button color="dark" icon="close-circle-outline" (click)="goBack()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Payments
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <p class="text-14 text-second-color">
+        We will use the host payment methods for all bookings for your listings.
+    </p>
+    <ion-list lines="full">
+        <ion-item>
+            <ion-label>Payment Currency</ion-label>
+            <ion-note color="medium"> GPB </ion-note>
+        </ion-item>
+        <ion-item detail (click)="openPayPal()" class="payment-method">
+            <ion-icon src="/assets/icon/atoms/payment/paypal.svg" slot="start" class="payment-icon"></ion-icon>
+            <ion-label>PayPal</ion-label>
+            <ion-badge color="primary" slot="end">
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-badge>
+        </ion-item>
+        <ion-item detail disabled="true" class="payment-method">
+            <ion-icon src="/assets/icon/atoms/payment/applepay-white.svg" slot="start" class="payment-icon"></ion-icon>
+            <ion-label>ApplePay</ion-label>
+        </ion-item>
+        <ion-item detail (click)="openBank()" disabled="true" class="payment-method">
+            <ion-icon src="/assets/icon/atoms/payment/BankTransfer.svg" slot="start" class="payment-icon"></ion-icon>
+            <ion-label>Bank Transfer</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-img src="/assets/logo.svg"></ion-img>
+</ion-footer>

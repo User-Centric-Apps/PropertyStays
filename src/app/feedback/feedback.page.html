@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="tabs/tab1" text="" color="primary"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Feedback
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icon/atoms/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="feedForm" *ngIf="!hasSent; else sended">
+        <p class="text-second-color text-14">
+            We’re always working to improve the PropertyStays experience, so we’d love to hear what’s working and how we can do better.
+        </p>
+        <p class="text-second-color text-14">
+            You can also get help by visiting the FAQ page, or talk to us using Live Chat feature.
+        </p>
+        <ion-item class="item-input">
+            <ion-label position="floating">Full Name</ion-label>
+            <ion-input clearInput type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item class="item-input">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input viewInput type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item class="item-input">
+            <ion-label position="floating">Feedback is about</ion-label>
+            <ion-select interface="popover" formControlName="subject">
+                <ion-select-option value="Issue">Issue</ion-select-option>
+                <ion-select-option value="App Error">App Error</ion-select-option>
+                <ion-select-option value="Suggestion">Suggestion</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="item-input">
+            <ion-label position="floating">Your Message</ion-label>
+            <ion-textarea formControlName="message"></ion-textarea>
+        </ion-item>
+    </form>
+    <ng-template #sended>
+        <p class="text-second-color text-16" text-center>
+            Thank you for your feedback, we will contact you back soon.
+        </p>
+        <ion-button color="primary" class="big-btn white-text" size="large" expand="block" (click)="goBack()">
+            Go Back
+        </ion-button>
+    </ng-template>
+</ion-content>
+<ion-footer>
+    <ion-button expand="block" size="large" class="big-btn white-text" round strong (click)="sendFeedback()" [disabled]="feedForm.invalid">Send my feedback
+    </ion-button>
+</ion-footer>

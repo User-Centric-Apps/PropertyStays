@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Register</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-back-button text="" icon="/assets/icons/close.svg" color="dark" class="close-icon">
+            </ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form #form="ngForm" (ngSubmit)="register(form)">
+        <ion-item class="item-input">
+            <ion-label position="floating">Full Name</ion-label>
+            <ion-input clearInput type="text" name="name" ngModel required></ion-input>
+        </ion-item>
+        <ion-item class="item-input">
+            <ion-label position="floating">Email Address</ion-label>
+            <ion-input clearInput type="email" name="email" ngModel required></ion-input>
+        </ion-item>
+        <ion-item class="item-input">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input viewInput [type]="showPass ? 'text' : 'password'" name="password" ngModel required minlength="4">
+            </ion-input>
+            <ion-icon [name]="showPass ? 'eye' : 'eye-off'" slot="end" class="show-pass" [ngClass]="showPass ? 'active' : ''" (click)="togglePass()"></ion-icon>
+        </ion-item>
+        <ion-grid class="ion-no-padding terms-grid mr-top">
+            <ion-row class="input-row">
+                <ion-col size="1" class="ion-no-padding">
+                    <ion-item class="item-input has-check">
+                        <ion-checkbox slot="start" name="acceptTerms" [(ngModel)]="acceptTerms" required></ion-checkbox>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="11" class="ion-no-padding">
+                    <p class="label">
+                        I accept Property Stays's
+                        <ion-text color="primary" routerLink="/terms" routerDirection="forward">
+                            Terms & Conditions
+                        </ion-text>
+                    </p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="input-row">
+                <ion-col size="1" class="ion-no-padding">
+                    <ion-item class="item-input has-check">
+                        <ion-checkbox slot="start" name="acceptPrivacy" [(ngModel)]="acceptPrivacy" required></ion-checkbox>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="11" class="ion-no-padding">
+                    <p class="label">
+                        I accept Property Stays's
+                        <ion-text color="primary" routerLink="/privacy" routerDirection="forward">
+                            Privacy Policy
+                        </ion-text>
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <!-- <ion-item class="item-input has-check">
+            <ion-label class="ion-text-wrap fill-width">
+                Accept
+                <ion-text color="primary" routerLink="/terms" routerDirection="forward">
+                    Terms & Conditions
+                </ion-text>
+                &
+                <ion-text color="primary"> Privacy Policy </ion-text>
+            </ion-label>
+            <ion-checkbox slot="start" name="acceptTerms" [(ngModel)]="acceptTerms" required></ion-checkbox>
+        </ion-item> -->
+
+        <ion-button expand="block" size="large" class="big-btn" [disabled]="form.invalid || !acceptTerms || !acceptPrivacy" type="submit">
+            <ion-icon src="/assets/icons/checkmark.svg" slot="start"></ion-icon>
+            Register
+        </ion-button>
+    </form>
+    <div class="divider">
+        <span>OR</span>
+    </div>
+    <p text-center>Link your account</p>
+    <ion-button expand="block" size="large" class="big-btn facebook" (click)="facebookLogin()">
+        <ion-icon name="logo-facebook"></ion-icon>
+        Facebook
+    </ion-button>
+    <!-- <ion-button expand="block" size="large" class="big-btn google" routerDirection="forward">
+        <ion-icon name="logo-google"></ion-icon>
+        Google
+    </ion-button> -->
+</ion-content>

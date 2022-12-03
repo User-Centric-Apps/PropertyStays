@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button type="button" slot="icon-only" fill="clear" (click)="closeModal()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title class="no-margin">Tour reviews</ion-title>
+
+        <ion-buttons slot="start">
+            <ion-button type="button" slot="icon-only" fill="clear" (click)="closeModal()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <div class="ratings">
+        <ion-item lines="none" detail>
+            <ion-label>Rating</ion-label>
+            <ion-note *ngIf="reviewsData?.canwrite !== 1" color="danger" slot="end">Write a review</ion-note>
+        </ion-item>
+        <ion-row align-items-center>
+            <ion-col size="4" class="rating-num">
+                <h2 class="rate" color="primary">
+                    {{ reviewsData?.rating }}
+                </h2>
+                <p>out of 5</p>
+            </ion-col>
+            <ion-col size="8">
+                <ion-row align-items-center>
+                    <ion-col size="4" class="stars" align-items-end text-end>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                    </ion-col>
+                    <ion-col size="8" class="progress">
+                        <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+                    </ion-col>
+                </ion-row>
+                <ion-row align-items-center>
+                    <ion-col size="4" class="stars" align-items-end text-end>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                    </ion-col>
+                    <ion-col size="8" class="progress">
+                        <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+                    </ion-col>
+                </ion-row>
+                <ion-row align-items-center>
+                    <ion-col size="4" class="stars" align-items-end text-end>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                    </ion-col>
+                    <ion-col size="8" class="progress">
+                        <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+                    </ion-col>
+                </ion-row>
+                <ion-row align-items-center>
+                    <ion-col size="4" class="stars" align-items-end text-end>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                    </ion-col>
+                    <ion-col size="8" class="progress">
+                        <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+                    </ion-col>
+                </ion-row>
+                <ion-row align-items-center>
+                    <ion-col size="4" class="stars" align-items-end text-end>
+                        <ion-icon name="star"></ion-icon>
+                    </ion-col>
+                    <ion-col size="8" class="progress">
+                        <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="comments">
+        <ion-list lines="none">
+            <div *ngFor="let comment of reviewsData?.comments" class="comment">
+                <ion-row>
+                    <ion-col size="6">
+                        <p class="title">{{ comment.title }}</p>
+                        <div class="stars">
+                            <ion-icon name="star" [color]="comment.rate > 0 ? 'primary' : 'medium'"></ion-icon>
+                            <ion-icon name="star" [color]="comment.rate > 1 ? 'primary' : 'medium'"></ion-icon>
+                            <ion-icon name="star" [color]="comment.rate > 2 ? 'primary' : 'medium'"></ion-icon>
+                            <ion-icon name="star" [color]="comment.rate > 3 ? 'primary' : 'medium'"></ion-icon>
+                            <ion-icon name="star" [color]="comment.rate > 4 ? 'primary' : 'medium'"></ion-icon>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6" text-right>
+                        <p class="author">{{ comment.author }}</p>
+                        <p class="date">{{ comment.date }}</p>
+                    </ion-col>
+                </ion-row>
+                <p [innerHtml]="comment.content" class="content"></p>
+            </div>
+        </ion-list>
+    </div>
+</ion-content>

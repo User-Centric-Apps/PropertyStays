@@ -1,0 +1,60 @@
+ion-content.empty {
+    background-image: url("/assets/img/no-trips.svg") !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+    --background: auto;
+    background-position: bottom;
+    background-color: #fff;
+}
+
+.no-trips {
+    h1 {
+        text-align: center;
+    }
+    h6 {
+        text-align: center;
+        color: var(--ion-text-color2);
+        margin: 30px 0;
+        font-weight: 300;
+    }
+    ion-button.explore {
+        --border-radius: 100px;
+        font-size: 17px;
+        height: 54px;
+        text-transform: inherit;
+    }
+}
+
+.trips {
+    p.likes-count {
+        color: var(--ion-text-color2);
+        font-size: 14px;
+        margin: 15px;
+    }
+    .order-status {
+        position: absolute;
+        right: 0;
+        text-align: right;
+        padding: 10px;
+        font-size: 0.8em;
+        border-radius: 5px 0 0 5px;
+        color: #fff;
+        margin-top: 10px;
+        opacity: 0.75;
+        span {
+            font-weight: 700;
+        }
+        &.Completed {
+            background: var(--ion-color-success);
+        }
+        &.Incomplete {
+            background: var(--ion-color-dark);
+        }
+    }
+    ion-img.image {
+        margin-bottom: 0px;
+    }
+    span.heavy {
+        font-weight: 700;
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "ps",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "eead2fac",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://cors.api.com/api"
+    }
+  ]
+}

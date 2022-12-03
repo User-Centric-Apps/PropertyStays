@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="goBack()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Settings
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list lines="full">
+        <ion-item *ngIf="authService.authenticationState.value">
+            <ion-label>Notifications</ion-label>
+            <ion-toggle slot="end" (ionChange)="changeNotify($event)" [(ngModel)]="notifyStatus"></ion-toggle>
+        </ion-item>
+        <ion-item detail class="has-detail" *ngIf="!authService.authenticationState.value" (click)="ui.loginAlert()">
+            <ion-label>Currency</ion-label>
+            <ion-note color="medium" slot="end"> GPB </ion-note>
+            <!-- <ion-select interface="action-sheet">
+                <ion-select-option value="GPB" selected>GPB</ion-select-option>
+                <ion-select-option value="EGP">EGP</ion-select-option>
+            </!-->
+        </ion-item>
+        <!--<ion-item *ngIf="authService.authenticationState.value">
+            <ion-label>Currency</ion-label>
+            <ion-select interface="action-sheet" [(ngModel)]="selectedCurrency" (ionChange)="changeCurrency($event, selectedCurrency)">
+                <ion-select-option *ngFor="let currency of currencies" [value]="currency.name">{{currency.title}} ({{currency.symbol}})</ion-select-option>
+            </ion-select>
+        </ion-item>-->
+        <ion-item detail class="has-detail">
+            <ion-label>Currency</ion-label>
+            <ion-select interface="action-sheet" [(ngModel)]="selectedCurrency" (ionChange)="changeCurrency($event, selectedCurrency)">
+                <ion-select-option value="gbp" selected>GPB</ion-select-option>
+                <ion-select-option value="eur">EGP</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-img src="/assets/logo.svg"></ion-img>
+    <ion-button expand="full" color="light" (click)="logOut()">
+        <ion-icon name="log-out" slot="start"></ion-icon>
+        <ion-label>
+            Log Out
+        </ion-label>
+    </ion-button>
+</ion-footer>

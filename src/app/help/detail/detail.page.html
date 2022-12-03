@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title> Help </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button>
+                <ion-icon src="/assets/icon/atoms/menu.svg"></ion-icon>
+            </ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <div *ngFor="let item of topic" class="maindiv">
+        <div [innerHTML]="item?.description"></div>
+    </div>
+</ion-content>
+<ion-footer class="contact">
+    <ion-item lines="none">
+        <ion-label>Still need help?</ion-label>
+        <ion-button color="primary" slot="end" class="white-text normal-text no-radius no-shadow" (click)="goToContact()">
+            Contact Us
+        </ion-button>
+    </ion-item>
+</ion-footer>

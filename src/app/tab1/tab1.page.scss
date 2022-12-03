@@ -1,0 +1,138 @@
+ion-header.has-bg {
+    background-image: url(/assets/img/header_bg.jpg);
+    background-size: cover;
+    // transition: all 0.3s;
+    background-origin: content-box;
+    background-position: center top;
+    ion-toolbar {
+        --background: none;
+        --color: #fff;
+        transition: all 0s;
+        &.trans {
+            --background: rgba(255, 255, 255, 0.7);
+        }
+        &.has-controls {
+            --padding-top: 20px;
+            --padding-bottom: 20px;
+        }
+        &.hidable {
+            height: 138px;
+            transition: all 0s;
+            opacity: 1;
+        }
+        &.hideSearch {
+            height: 0;
+            transition: all 0s;
+            opacity: 0;
+            --color: var(--ion-color-primary);
+        }
+    }
+    &.no-search {
+        background-image: none;
+    }
+    &.hide-search {}
+}
+
+ion-img.logo {
+    height: 35px;
+    text-align: left;
+    max-width: 50%;
+    padding-left: 8px;
+    img {
+        max-height: 35px;
+    }
+}
+
+ion-content {
+    --padding-top: 20px;
+}
+
+ion-slides.recomended-cities {
+    .city-card {
+        width: 140px;
+        height: 140px;
+        margin: 15px 0 40px;
+        background-size: cover;
+        ion-card-content {
+            padding: 10px 0;
+            height: 100%;
+            background: linear-gradient( 180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 80%, rgba(0, 0, 0, 0.9) 100%);
+            .text {
+                transform: translateY(180%);
+                color: #ffffff;
+            }
+        }
+    }
+    .swiper-pagination.swiper-pagination-bullets {
+        bottom: -15px;
+    }
+    .swiper-pagination-bullet-active {
+        background: #37dfa6;
+        opacity: 1;
+    }
+}
+
+.ionic-selectable {
+    background: #ffffff17;
+    color: #ffffff;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    padding: 0 8px;
+    margin: 0 10px;
+    --placeholder-color: #fff;
+}
+
+.prop-images ion-slide {
+    /*min-height: 264px;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.zindalft
+{
+    float: left;
+}
+.zindaright
+{
+        float: left;
+    margin-top: 0px;
+    margin-left: 8px;
+    font-size: 16px;
+}
+ion-card.property-item ion-card-content ion-grid h3.price {
+    margin-bottom: 6px;
+    padding-left: 0;
+}
+.top-exp .top-prop ion-button.book-now
+{
+    margin-top: 0;
+}
+ion-card.property-item ion-card-content ion-grid h5.reviews {
+    
+    padding-left: 0;
+}
+.property-item .featured {
+    position: absolute;
+    top: 0.75rem;
+    left: 0rem;
+    background: #ED0925;
+    display: inline-block;
+    padding: 0 10px;
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 99999;
+    height: 30px;
+    line-height: 30px;
+}
+.property-item .featured::after {
+    position: absolute;
+    content: "";
+    top: -9px;
+    right: -10px;
+    border: 10px solid transparent;
+    border-bottom: 29px solid #ED0925;
+    z-index: 1;
+}

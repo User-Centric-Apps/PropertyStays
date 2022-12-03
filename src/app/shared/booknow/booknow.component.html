@@ -1,0 +1,315 @@
+<ion-header [ngClass]="screenClass">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="closeModal()">
+                <ion-icon name="arrow-back" slot="icon-only" [color]="screenClass == 'done' ? 'light' : 'primary'" *ngIf="screenClass != 'done'"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Request a booking</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+                <ion-icon [src]="
+            screenClass == 'done'
+              ? '/assets/icons/close_white.svg'
+              : '/assets/icons/close.svg'
+          " class="transparent"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding [ngClass]="screenClass">
+    <ion-slides pager="false" [options]="sliderOpts" #stepsSlider>
+        <ion-slide class="first-req">
+            <!-- <h1>Booking Details for </h1> -->
+
+            <div class="rent-details">
+                <ion-row>
+                    <ion-col size="8">
+                        <div class="rent-data">
+                            <h6>{{ rentalDetails?.title | slice: 0:20 }}...</h6>
+                            <ion-text color="primary" *ngIf="currencySymbol">{{ currencySymbol }} {{ rentalDetails?.price }}
+                            </ion-text>
+                            <div class="rating">
+                                <ion-icon *ngIf="rentalDetails?.rating > 0" name="star" color="primary"></ion-icon>
+                                <ion-icon *ngIf="rentalDetails?.rating > 1" name="star" color="primary"></ion-icon>
+                                <ion-icon *ngIf="rentalDetails?.rating > 2" name="star" color="primary"></ion-icon>
+                                <ion-icon *ngIf="rentalDetails?.rating > 3" name="star" color="primary"></ion-icon>
+                                <ion-icon *ngIf="rentalDetails?.rating > 4" name="star" color="primary"></ion-icon>
+                            </div>
+                            <div class="reviews">
+                                {{ rentalDetails?.reviews_count }}
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col size="4">
+                        <ion-img [src]="
+                rentalDetails?.image !== null || rentalDetails?.image !== ''
+                  ? rentalDetails?.image
+                  : '/assets/img/property/no_image2.png'
+              " alt=""></ion-img>
+                    </ion-col>
+                </ion-row>
+            </div>
+
+            <div class="book-data">
+                <ion-row>
+                    <ion-col size="4" class="ion-no-padding">
+                        <ion-item class="item-input">
+                            <ion-label position="floating">Check in</ion-label>
+                            <ion-datetime displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="bookingService.dateFrom" value="{{ bookingService.dateFrom }}" min="{{ bookingService.dateFromMin }}" [max]="bookingService.dateFromMax" (ionChange)="
+                  bookingService.fromChanged(firedBefore); updateBookingReq()
+                ">
+                            </ion-datetime>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="4" class="ion-no-padding">
+                        <ion-item class="item-input">
+                            <ion-label position="floating">Check out</ion-label>
+                            <ion-datetime displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="bookingService.dateTo" value="{{ bookingService.dateTo }}" min="{{ bookingService.dateToMin }}" [max]="bookingService.dateToMax" (ionChange)="updateBookingReq()"></ion-datetime>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="4" class="ion-no-padding">
+                        <ion-item class="item-input travellers">
+                            <ion-label position="floating">Travellers</ion-label>
+                            <ion-text color="primary" (click)="toggleTravelers()" class="travellersCount">{{ bookingService.adults + bookingService.children }}
+                                <span [textContent]="
+                    bookingService.adults + bookingService.children == 1
+                      ? 'Traveller'
+                      : 'Travellers'
+                  "></span
+              ></ion-text>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="showTravelers">
+          <ion-col size="12">
+            <ion-item class="item-input">
+              <ion-button
+                color="primary"
+                slot="start"
+                class="spinner-btn white-text"
+                (click)="spinnerMin('adults')"
+                [disabled]="this.bookingService.adults <= 1"
+              >
+                <ion-icon name="remove" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button
+                color="primary"
+                slot="end"
+                class="spinner-btn white-text"
+                (click)="spinnerPlus('adults')"
+              >
+                <ion-icon name="add" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-label position="floating">Adults</ion-label>
+              <ion-input
+                [(ngModel)]="bookingService.adults"
+                type="number"
+                min="1"
+                (ionChange)="
+                  bookingService.adults > 0 && bookingService.adults != ''
+                    ? updateBookingReq()
+                    : false
+                "
+                debounce="250"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item class="item-input">
+              <ion-button
+                color="primary"
+                slot="start"
+                class="spinner-btn white-text"
+                (click)="spinnerMin('children')"
+                [disabled]="this.bookingService.children <= 0"
+              >
+                <ion-icon name="remove" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button
+                color="primary"
+                slot="end"
+                class="spinner-btn white-text"
+                (click)="spinnerPlus('children')"
+              >
+                <ion-icon name="add" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-label position="floating">Children</ion-label>
+              <ion-input
+                [(ngModel)]="bookingService.children"
+                type="number"
+                min="0"
+                (ionChange)="
+                  bookingService.children > 0 && bookingService.children != ''
+                    ? updateBookingReq()
+                    : false
+                "
+                debounce="250"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="book-details">
+        <h6>Price Details</h6>
+        <ion-item class="full-item">
+          <ion-label color="medium">
+            {{ currencySymbol }} {{ bookDetails?.price }} x
+            {{ bookDetails?.nights }}
+            <span
+              [textContent]="bookDetails?.nights == 1 ? 'night' : 'nights'"
+            ></span>
+                                </ion-label>
+                                <ion-note slot="end" color="primary" class="price-line">{{ currencySymbol }} {{ bookDetails?.total }}</ion-note>
+                        </ion-item>
+            </div>
+
+            <div class="total">
+                <ion-item class="full-item">
+                    <ion-label color="medium"> Total</ion-label>
+                    <ion-note slot="end" color="primary" class="price-total">{{ currencySymbol }} {{ bookDetails?.total }}</ion-note>
+                </ion-item>
+            </div>
+        </ion-slide>
+        <ion-slide *ngIf="ready_to_pay == 0">
+            <h1>Booking Submission</h1>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Name</ion-label>
+                        <ion-input [(ngModel)]="first_name" type="text"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input [(ngModel)]="user_email" type="email"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Phone</ion-label>
+                        <ion-input [(ngModel)]="st_phone" type="tel"></ion-input>
+                    </ion-item>
+                </ion-col>
+
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Address</ion-label>
+                        <ion-input [(ngModel)]="st_address" type="text"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Special Requirements</ion-label>
+                        <ion-textarea [(ngModel)]="specialReq" rows="3" class="small-textarea"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+        <ion-slide *ngIf="ready_to_pay == 1">
+            <h1>Pay Online</h1>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Card Number</ion-label>
+                        <ion-input [(ngModel)]="number" type="number"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="4">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Exp Month</ion-label>
+                        <ion-input [(ngModel)]="expMonth" type="number" maxlength="2"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Exp Year</ion-label>
+                        <ion-input [(ngModel)]="expYear" type="number" maxlength="4"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">CVC</ion-label>
+                        <ion-input [(ngModel)]="cvc" type="number" maxlength="3"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+        <ion-slide [ngClass]="screenClass">
+            <ion-icon src="/assets/icons/payment_white.svg" class="done-icon"></ion-icon>
+            <h3>
+                Your request has been sent.
+            </h3>
+            <p>
+                Once the host accepts your booking request, we will let you know and then you can complete your booking by making the payment via Stripe
+            </p>
+            <ion-button color="light" size="large" expand="block" class="big-btn done" round strong (click)="closeModal()">
+                Done
+                <ion-icon name="checkmark" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+<ion-footer class="first-slide-book">
+    <ion-item class="request-book" *ngIf="!bookRequested">
+        <label>Ready to book?</label>
+        <ion-button color="primary" [disabled]="
+        bookingService?.adults < 1 ||
+        bookingService?.adults == '' ||
+        bookingService?.adults == null
+      " class="big-btn white-text" slot="end" (click)="nextStep('getPrice')">
+            Request a booking
+        </ion-button>
+    </ion-item>
+    <ion-grid class="terms-grid" *ngIf="bookRequested && screenClass != 'done'">
+        <ion-row class="input-row">
+            <ion-col size="6">
+                <ion-row class="input-row">
+                    <ion-col size="3" class="ion-no-padding">
+                        <ion-item class="item-input has-check">
+                            <ion-checkbox slot="start" name="acceptTerms" [(ngModel)]="acceptTerms" required></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="9" class="ion-no-padding">
+                        <p class="label">
+                            I accept the booking
+                            <ion-text color="primary" > <!-- routerLink="terms" routerDirection="forward" -->
+                                <a href="https://propertystays.com/terms-and-conditions" target="_blank">
+                                    Terms & Conditions
+                                </a>
+                            </ion-text>
+                        </p>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button *ngIf="ready_to_pay == 1" color="primary" size="large" expand="block" class="big-btn white-text straight" [disabled]="!acceptTerms" (click)="nextStep('checkOut')">
+                    Continue
+                </ion-button>
+                <ion-button *ngIf="ready_to_pay == 0" color="primary" size="large" expand="block" class="big-btn white-text straight" [disabled]="!acceptTerms" (click)="nextStep('sendMessage')">
+                    Send Message
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
+<ion-footer> </ion-footer>

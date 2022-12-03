@@ -1,0 +1,330 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button color="dark" icon="close" text="" *ngIf="step == 1 || step == 5 || step == 6 || step == 7 || step > 7">
+                <!-- <ion-icon name="close"></ion-icon> -->
+            </ion-back-button>
+            <!-- <ion-button color="dark" (click)="prevStep()" *ngIf="step != 1 && step != 5 && step != 7 && step != 8">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button> -->
+            <ion-button color="dark" (click)="prevStep(true)" *ngIf="step == 2 || step == 3 || step == 4">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="step == 1">
+            Host your property
+        </ion-title>
+        <ion-buttons slot="end">
+            <!-- <ion-menu-button>
+                <ion-icon src="/assets/icons/menu.svg"></ion-icon>
+            </ion-menu-button> -->
+            <ion-button color="dark" fill="clear" *ngIf="step == 4 || step == 5 || step == 6 || step == 7 || step > 7" (click)="saveExit()">
+                Save and exit
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-slides pager="false" [options]="sliderOpts" #stepsSlider>
+        <ion-slide>
+            <h1>Which of these sounds most like your place?</h1>
+            <div class="content-container">
+                <ion-list lines="full">
+                    <ion-item class="item-input" [ngClass]="renttype_id !== null && renttype_id !== '' ? 'ion-item-hasvalue item-has-value' : ''">
+                        <ion-label position="floating">Choose your property type</ion-label>
+                        <ion-select interface="popover" [(ngModel)]="renttype_id">
+                            <ion-select-option *ngFor="let item of propTypeArr" value="{{item.id}}" [selected]="item.id == renttype_id ? 'true' : 'false'">{{item.title}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-text color="medium">
+                            <p>
+                                Houses are residential buildings that are often stand-alone structures.Some houses, duplexes, may share walls or outdoor areas with other houses
+                            </p>
+                        </ion-text>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+        <ion-slide>
+            <h1>How many guests can stay?</h1>
+            <div class="content-container">
+                <ion-list lines="full">
+                    <ion-item class="item-input">
+                        <ion-button color="primary" slot="start" class="spinner-btn white-text" (click)="spinnerMin('adults')" [disabled]="adults == 1">
+                            <ion-icon name="remove" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button color="primary" slot="end" class="spinner-btn white-text" (click)="spinnerPlus('adults')">
+                            <ion-icon name="add" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-label position="floating">Adults</ion-label>
+                        <ion-input clearInput type="number" name="adults" value="1" [(ngModel)]="adults"></ion-input>
+                    </ion-item>
+                    <ion-item class="item-input">
+                        <ion-button color="primary" slot="start" class="spinner-btn white-text" (click)="spinnerMin('children')" [disabled]="children == 0">
+                            <ion-icon name="remove" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button color="primary" slot="end" class="spinner-btn white-text" (click)="spinnerPlus('children')">
+                            <ion-icon name="add" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-label position="floating">Childrens</ion-label>
+                        <ion-input clearInput type="number" name="children" value="0" [(ngModel)]="children"></ion-input>
+                    </ion-item>
+                    <ion-item class="item-input">
+                        <ion-button color="primary" slot="start" class="spinner-btn white-text" (click)="spinnerMin('bed')" [disabled]="bed == 1">
+                            <ion-icon name="remove" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button color="primary" slot="end" class="spinner-btn white-text" (click)="spinnerPlus('bed')">
+                            <ion-icon name="add" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-label position="floating">Beds for guests</ion-label>
+                        <ion-input clearInput type="number" name="bed" value="1" [(ngModel)]="bed"></ion-input>
+                    </ion-item>
+                    <ion-item class="item-input">
+                        <ion-button color="primary" slot="start" class="spinner-btn white-text" (click)="spinnerMin('bath')" [disabled]="bath == 0">
+                            <ion-icon name="remove" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button color="primary" slot="end" class="spinner-btn white-text" (click)="spinnerPlus('bath')">
+                            <ion-icon name="add" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-label position="floating">Bathrooms</ion-label>
+                        <ion-input clearInput type="number" name="bath" value="0" [(ngModel)]="bath"></ion-input>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <h1>Where's your place located?</h1>
+            <div class="content-container">
+                <ion-list lines="full">
+                    <ion-item class="item-input" [ngClass]="city_id !== null && city_id !== '' ? 'ion-item-hasvalue item-has-value' : ''">
+                        <ion-label position="floating">Region</ion-label>
+                        <ion-select interface="popover" [(ngModel)]="city_id" (ionChange)="getCityLatLng(city_id)">
+                            <ion-select-option *ngFor="let item of allLocations" value="{{item.id}}" [selected]="item.id == city_id ? 'true' : 'false'">{{item.title}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Area</ion-label>
+                        <ion-input clearInput type="search" name="area" [(ngModel)]="area" debounce="500" value=""></ion-input>
+                    </ion-item>
+                    <!--<ion-list *ngIf="hasPlaces && !placeDone" class="places-result">
+                        <ion-item *ngFor="let place of placesArray" (click)="selectPlace(place.place_id, place.description)">
+                            <ion-label>
+                                {{place.description}}
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>-->
+                </ion-list>
+            </div>
+
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep(true)">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <h1>Is the pin in the right place?</h1>
+            <p color="medium" class="sub-heading">Drag the map to place the pin</p>
+            <div id="map_canvas" #map_canvas  ></div>
+            <!--<div class="v-marker" #vMarker>
+                <img src="./assets/img/v_marker.svg" [ngStyle]="{'transform': mapMoving ? 'scale(0.7)' : 'scale(1)'}" />
+            </div>-->
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <h1>What amenities will you offer?</h1>
+            <p color="medium" class="sub-heading">
+                You'll be able to add more amenities after you publish your listing.
+            </p>
+            <div class="content-container">
+                <ion-list lines="full">
+                    <ion-item *ngFor="let option of propAmenities; let i = index">
+                        <ion-label>{{option.title}}</ion-label>
+                        <ion-checkbox value="{{option.id}}" (click)="setAmenity(option.id, $event)" [(ngModel)]="option.isChecked" mode="ios"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <h1>Suitable for?</h1>
+            <!-- <p color="medium" class="sub-heading">You'll be able to add more amenities after you publish your listing.</p> -->
+            <div class="content-container">
+                <ion-list lines="full">
+                    <ion-item *ngFor="let option of propSuitable; let i = index">
+                        <ion-label>{{option.title}}</ion-label>
+                        <ion-checkbox value="{{option.id}}" (click)="setSuitableFor(option.id, $event)" [(ngModel)]="option.isChecked" mode="ios"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <h1>Add photos to your listing</h1>
+            <p color="medium" class="description">
+                Help guests imagine staying in your place. More photos are better, but you can always start with two and add more after you complete your listing
+            </p>
+            <ion-button expand="block" color="primary" class="white-text big-btn select-photo" (click)="selectImage()">
+                <ion-icon slot="start" name="camera"></ion-icon>
+                Select Photo
+            </ion-button>
+            <div class="content-container">
+                <ion-list>
+                    <ion-item *ngFor="let img of images; index as pos" text-wrap>
+                        <ion-thumbnail slot="start">
+                            <ion-img [src]="img.path"></ion-img>
+                        </ion-thumbnail>
+                        <ion-label>
+                            {{ img.name }}
+                        </ion-label>
+                        <ion-button slot="end" fill="clear" [disabled]="img.isUploaded" (click)="startUpload(img, pos)">
+                            <ion-icon slot="icon-only" [name]="img.isUploaded ? 'checkmark-circle-outline' : 'cloud-upload'"></ion-icon>
+                        </ion-button>
+                        <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+                            <ion-icon slot="icon-only" name="trash"></ion-icon>
+                        </ion-button>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="content-container">
+                <ion-list lines="full">
+                    <h1>Describe your place to guests</h1>
+                    <ion-item class="item-input">
+                        <!-- <ion-label position="floating">Street</ion-label> -->
+                        <ion-textarea type="search" [(ngModel)]="description" rows="4" class="desc" placeholder="Type your description"></ion-textarea>
+                    </ion-item>
+                    <!--<h1>Want to add more info? (optional)</h1>
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Add other details that help set guest's expectations for their stay</ion-label>
+                        <ion-textarea type="search" [(ngModel)]="st_desc" rows="4" class="desc" placeholder="Other details that help set guest's expectations for their stay"></ion-textarea>
+                    </ion-item>-->
+                </ion-list>
+            </div>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="content-container">
+                <h1>Name Your Place</h1>
+                <p color="medium" class="description">
+                    Attract guests with a listing title that highlights what makes your place special.
+                </p>
+                <ion-list lines="full">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Your Place Name</ion-label>
+                        <ion-input clearInput type="text" [(ngModel)]="title"></ion-input>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>-->
+
+        <ion-slide>
+            <div class="content-container">
+                <h1>How long can guests stay?</h1>
+                <p color="medium" class="description">
+                        Attract guests with a listing title that highlights what makes your place special.
+                    </p> 
+                <ion-list lines="full">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Maximum stay</ion-label>
+                        <ion-input clearInput type="number" name="maximum_days" [(ngModel)]="maximum_days"></ion-input>
+                    </ion-item>
+
+                    <!--<ion-item class="item-input">
+                        <ion-label position="floating">Booking Period (day)</ion-label>
+                        <ion-input clearInput type="number" [(ngModel)]="rentals_booking_period"></ion-input>
+                    </ion-item>-->
+                </ion-list>
+                 <ion-list lines="full">
+                    <ion-item>
+                        <ion-label position="floating">Online Payment</ion-label>
+                        <ion-radio value="1" [(ngModel)]="ready_to_pay" mode="ios"></ion-radio>
+                    </ion-item>
+                </ion-list>    
+            </div>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="content-container">
+                <h1>Price Your Space</h1>
+                <!-- <p color="medium" class="description">
+                            Attract guests with a listing title that highlights what makes your place special.
+                        </p> -->
+                <ion-list lines="full">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Base Price (GBP £)</ion-label>
+                        <ion-input clearInput type="number" [(ngModel)]="price"></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-list lines="full">
+                    <ion-item class="item-input">
+                        <ion-label position="floating">Discount Price (GBP £)</ion-label>
+                        <ion-input clearInput type="number" [(ngModel)]="discount_price"></ion-input>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="nextStep()">
+                Next
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+
+        <ion-slide>
+            <div class="content-container">
+                <h1>You’re ready to publish!</h1>
+                <p color="medium" class="description">
+                    Awesome brand service website Ever Forward emblem marketing launch logo. Strategic collateral Ever Forward Head Honcho strategic accessible, publications partner RPS word nerd.
+                </p>
+            </div>
+            <ion-button color="primary" size="large" expand="block" class="big-btn white-text next" round strong (click)="publish()">
+                Publish
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-button>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

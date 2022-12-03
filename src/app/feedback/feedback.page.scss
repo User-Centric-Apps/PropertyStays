@@ -1,0 +1,11 @@
+.item-input {
+    ion-select {
+        --padding-end: 16px;
+    }
+}
+
+.header-ios {
+    ion-toolbar:last-child {
+        --border-width: 0;
+    }
+}

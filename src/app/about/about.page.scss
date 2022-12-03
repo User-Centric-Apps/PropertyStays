@@ -1,0 +1,29 @@
+.app-info {
+    background: #F1F7FB;
+    text-align: center;
+    padding: 15px;
+    img {
+        max-width: 60%;
+    }
+    p {
+        margin: 5px 0;
+        font-size: 14px;
+        &.version {}
+        &.update {
+            color: #627790;
+            ion-icon {}
+        }
+    }
+}
+
+.app-actions {
+    background: #d5e1ea;
+}
+
+.desc {
+    color: #627790;
+    p {
+        color: #627790;
+        font-size: 14px;
+    }
+}

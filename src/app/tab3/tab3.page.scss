@@ -1,0 +1,80 @@
+ion-content.empty {
+    background-image: url("/assets/img/no-likes.svg") !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+    --background: auto;
+    background-position: bottom;
+    background-color: #fff;
+}
+
+.property-item {
+    ion-card-title {
+        ion-item {
+            --background: transparent;
+            background: transparent;
+            --padding-start: 0;
+            --padding-end: 0;
+            --inner-padding-end: 0;
+            --inner-padding-start: 0;
+            font-size: 16px;
+            color: #333333;
+            font-weight: 600;
+        }
+    }
+    ion-card-content {
+        // padding-bottom: 10px;
+        ion-img {
+            max-height: 200px;
+            overflow: hidden;
+        }
+    }
+}
+
+.no-likes {
+    h1 {
+        text-align: center;
+    }
+    h6 {
+        text-align: center;
+        color: var(--ion-text-color2);
+        margin: 30px 0;
+        font-weight: 300;
+    }
+    ion-button.explore {
+        --border-radius: 100px;
+        font-size: 17px;
+        height: 54px;
+        text-transform: inherit;
+    }
+}
+
+.liked {
+    p.likes-count {
+        color: var(--ion-text-color2);
+        font-size: 14px;
+        margin: 15px;
+    }
+}
+.featured {
+    position: absolute;
+    top: 0.75rem;
+    left: 0rem;
+    background: #ED0925;
+    display: inline-block;
+    padding: 0 10px;
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 99999;
+    height: 30px;
+    line-height: 30px;
+}
+.featured::after {
+    position: absolute;
+    content: "";
+    top: -9px;
+    right: -10px;
+    border: 10px solid transparent;
+    border-bottom: 29px solid #ED0925;
+    z-index: 1;
+}

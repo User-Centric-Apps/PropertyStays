@@ -1,0 +1,208 @@
+.map-canvas {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    ion-img {
+        opacity: 0;
+        display: none;
+    }
+}
+
+ion-item.nopadding {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+}
+
+.prop-detail {
+    border-bottom: 1px solid #E0E0E1;
+    margin-bottom: 5px;
+    ion-item {
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-start: 0;
+        --inner-padding-end: 0;
+    }
+    .prop-data {
+        h3.type {
+            color: #627790;
+            font-size: 12px;
+            line-height: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        p.location {
+            color: #263646;
+            font-size: 14px;
+            line-height: 17px;
+            margin-bottom: 10px;
+        }
+        p.price {
+            color: var(--ion-color-primary);
+            font-size: 17px;
+            line-height: 20px;
+        }
+    }
+    .owner {
+        text-align: center;
+        ion-item {
+            display: inline-block;
+            margin-top: 5px;
+            ion-avatar.owner-image {
+                margin: 15px 0 0;
+                align-self: center;
+                justify-self: center;
+            }
+        }
+        p.owner-name {
+            color: #999999;
+            font-size: 8.8px;
+            line-height: 11px;
+            font-weight: 700;
+        }
+    }
+}
+
+.features {
+    border-bottom: 1px solid #E0E0E1;
+    margin-bottom: 5px;
+    ion-item {
+        ion-icon {
+            margin: 0 5px 0 0;
+        }
+        ion-label {
+            margin: 0;
+            span.heavy {
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.aminities {
+    border-bottom: 1px solid #E0E0E1;
+    margin-bottom: 5px;
+    transition: height 2s;
+    ion-col {
+        text-align: center;
+        ion-icon {
+            width: 27px;
+            height: 27px;
+        }
+    }
+    p.name {
+        font-size: 8px;
+        opacity: 0.8;
+        margin: 0;
+    }
+    .aminities-toggle {
+        position: absolute;
+        right: 16px;
+        background: #fff;
+        display: flex;
+        width: 80px;
+        height: 64px;
+        z-index: 1;
+        align-items: center;
+        margin-top: -5px;
+        p {
+            display: block;
+            text-align: center;
+            background: #fff;
+            margin: 0;
+            width: 100%;
+            z-index: 1;
+            font-size: 20px;
+            color: #627790;
+        }
+    }
+    &.collapsed {
+        height: 60px;
+        transition: height 2s;
+        overflow: hidden;
+    }
+    &.expanded {
+        height: auto;
+        transition: height 2s;
+        .aminities-toggle {
+            bottom: -16px;
+        }
+    }
+}
+
+.reviews {
+    border-bottom: 1px solid #E0E0E1;
+    margin-bottom: 5px;
+    ion-item {
+        --detail-icon-color: var(--ion-color-primary);
+        --detail-icon-opacity: 1;
+        ion-badge {
+            --ion-color-base: #0084B1 !important;
+            --ion-color-contrast: #fff !important;
+            font-size: 13px;
+            margin-right: 5px;
+        }
+        ion-note {
+            font-size: 13px;
+            padding-top: 16px;
+        }
+    }
+}
+
+.description {
+    padding-bottom: 15px;
+    .content {
+        &.collapsed {
+            height: 55px;
+            overflow: hidden;
+        }
+        &.expanded {
+            height: auto;
+        }
+    }
+    .more {
+        color: var(--ion-color-primary);
+        text-align: right;
+        font-size: 13px;
+        line-height: 16px;
+    }
+}
+.havy
+{
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 5px !important;
+    width: 40px !important;
+    height: 40px !important;
+    ion-icon
+    {
+        color: #00bdbb;
+    }
+}
+ion-icon.sc-ion-back-button-md
+{
+    color:black!important;
+}
+.trn
+{
+        margin-left: -3px;
+    padding: 3px;
+}
+.featured {
+    position: absolute;
+    left: 0rem;
+    background: #ED0925;
+    display: inline-block;
+    padding: 0 4px;
+    color: #FFF;
+    font-size: 8px;
+    font-weight: 500;
+    z-index: 99999;
+    height: 20px;
+    line-height: 20px;
+}
+.featured::after {
+    
+}

@@ -1,0 +1,36 @@
+ion-item.profile-header {
+    ion-label {
+        h2 {
+            font-size: 22px;
+        }
+        p {
+            align-items: center;
+            display: flex;
+            ion-icon {
+                font-size: 20px;
+            }
+        }
+    }
+    ion-avatar {
+        width: 80px;
+        height: 80px;
+        img {
+            transform: scale(0.88);
+        }
+        ion-button {
+            position: absolute;
+            right: 5px;
+            width: 36px;
+            font-size: 12px;
+            height: 36px;
+            padding: 0;
+            --padding-start: 0;
+            --padding-end: 0;
+            --border-radius: 36px;
+            top: 0;
+            ion-icon {
+                font-size: 27px;
+            }
+        }
+    }
+}

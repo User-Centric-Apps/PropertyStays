@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" router-direction="back" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> Message with {{ oUserName }} </ion-title>
+        <ion-buttons slot="end">
+            <ion-button router-direction="back" (click)="goBack()">
+                <ion-icon src="/assets/icons/close.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding [scrollEvents]="true" #content>
+    <ion-list class="messages">
+        <div *ngFor="let msg of allMessages" class="single" [ngClass]="msg.me == 1 ? 'mine' : 'other'">
+            <ion-row>
+                <ion-col size="2">
+                    <ion-avatar>
+                        <img [src]="msg.sender_avatar" />
+                    </ion-avatar>
+                </ion-col>
+                <ion-col size="10">
+                    <div class="message">
+                        <p>{{ msg.content }}</p>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col size="12">
+            <ion-item>
+                <ion-textarea #newMsgArea placeholder="Write something here" rows="1" [(ngModel)]="msgCotent">
+                </ion-textarea>
+                <ion-button slot="end" color="primary" fill="clear" shape="round" size="large" (click)="addNewMessage()" [disabled]="msgCotent == ''">
+                    <ion-icon name="send"></ion-icon>
+                </ion-button>
+            </ion-item>
+        </ion-col>
+        <!-- <ion-col size="1">
+            <ion-button color="dark" fill="clear" shape="round" size="large" class="add">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-col> -->
+    </ion-row>
+</ion-footer>

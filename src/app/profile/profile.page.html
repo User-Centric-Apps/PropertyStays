@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" router-direction="back" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Profile
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button router-direction="forward" (click)="editProfile()" color="primary">
+                Edit
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item lines="none" class="profile-header">
+        <ion-label text-wrap>
+            <h2>{{ userData?.name }}</h2>
+            <ion-text>
+                <p class="text-second-color text-12">
+                    <ion-icon name="pin" color="medium"></ion-icon>
+                    <span>{{ userData?.address }}</span>
+                </p>
+            </ion-text>
+        </ion-label>
+
+        <ion-avatar slot="end" *ngIf="userData?.avatar">
+            <img [src]="userData?.avatar" />
+        </ion-avatar>
+    </ion-item>
+
+    <ion-item lines="full" class="mr-t-30 trans">
+        <ion-label text-wrap>
+            <ion-text>
+                <h6 class="text-second-color text-14">Member since</h6>
+            </ion-text>
+            <h4>{{ userData?.member_since }}</h4>
+        </ion-label>
+    </ion-item>
+    <ion-item lines="full" class="trans">
+        <ion-label text-wrap>
+            <ion-text>
+                <h6 class="text-second-color text-14">Verified info</h6>
+            </ion-text>
+            <h4>{{ userData?.verified_info }}</h4>
+        </ion-label>
+    </ion-item>
+
+    <!-- <ion-item lines="full">
+        <ion-label>Language</ion-label>
+        <ion-select interface="action-sheet">
+            <ion-select-option value="en" selected>English</ion-select-option>
+            <ion-select-option value="ar">Arabic</ion-select-option>
+        </ion-select>
+    </ion-item> -->
+    <!-- <ion-item lines="full">
+        <ion-label>Linked to Facebook</ion-label>
+        <ion-toggle slot="end" checked></ion-toggle>
+    </ion-item>
+    <ion-item lines="full">
+        <ion-label>Linked to Google+</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+    </ion-item> -->
+</ion-content>

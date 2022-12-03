@@ -1,0 +1,186 @@
+// ion-content {
+//     --offset-bottom: -6vh !important;
+//     ion-footer {
+//         margin: 0 -16px 0;
+//         width: 100vw;
+//         height: fit-content;
+//         position: fixed;
+//         bottom: 0;
+//         ion-button {
+//             margin: 0;
+//             height: 12vw;
+//             font-weight: 300;
+//             text-transform: initial;
+//             font-size: 17px;
+//         }
+//     }
+// }
+ion-list.top-city-view {
+    ion-item {
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-end: 0;
+        --inner-padding-start: 0;
+        --background: #F5F5F5;
+        --padding-top: 0;
+        --padding-bottom: 0;
+        --border-radius: 8px;
+        margin-bottom: 10px;
+        ion-grid {
+            ion-row {
+                ion-col {
+                    ion-img {
+                        height: 150px;
+                        border-radius: 8px 0px 0 8px;
+                    }
+                    h3 {
+                        margin-top: 4px;
+                        margin-bottom: 4px;
+                        font-weight: bold;
+                        font-size: 13px;
+                        &.price {
+                            font-size: 17px;
+                                font-weight: bold;
+                        }
+                    }
+                    ion-button.book-now {
+                            max-height: 35px;
+                        margin: 0px 0;
+                        align-self: flex-end;
+                        color: #ffffff;
+                        font-size: 14px;
+                        font-weight: 500;
+                        --border-radius: 20px;
+                        float: right;
+                        --box-shadow: none;
+                        text-transform: capitalize;
+                        margin-right: 5px;
+                    }
+                }
+            }
+            padding: 0;
+            ion-col.no-padding {
+                padding: 0;
+            }
+            ion-col.padding-left {
+                padding: 0 0 0 10px;
+            }
+        }
+    }
+}
+
+.description {
+    h3 {
+        font-size: 17px;
+        color: #24253D;
+        line-height: 23px;
+    }
+    p {
+        font-size: 13px;
+        color: #24263D;
+        line-height: 17px;
+    }
+}
+
+.cat-row {
+    --padding-start: 0;
+    --padding-end: 0;
+}
+
+.flex-gallery {
+    column-count: 3;
+    column-fill: balance;
+    .pin {
+        margin: 0;
+        width: fit-content;
+        // padding: 3px 5px;
+        height: fit-content;
+        span {
+            font-size: 0.7em;
+            display: flex;
+            position: absolute;
+            max-width: 100px;
+            overflow: hidden;
+            transform: translateY(-25px) translateX(10px);
+            text-align: center;
+            color: #fff;
+            max-height: 15px;
+            text-shadow: 0px 1px 5px #000;
+            box-shadow: inset 0px 0px 20px 6px #0000009c;
+        }
+    }
+}
+
+#map_canvas {
+    width: 100%;
+    height: 250px;
+}
+
+.prop-images ion-slide {
+    min-height: 264px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.zindalft
+{
+    float: left;
+    margin-left: 5px;
+}
+.zindalft img {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+.zindaright
+{
+    float: left;
+    margin-left: 5px;
+}
+
+.top-city-view .featured {
+    position: absolute;
+    top: 0.75rem;
+    left: 0rem;
+    background: #ED0925;
+    display: inline-block;
+    padding: 0 10px;
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 99999;
+    height: 30px;
+    line-height: 30px;
+}
+.top-city-view .featured::after {
+    position: absolute;
+    content: "";
+    top: -9px;
+    right: -10px;
+    border: 10px solid transparent;
+    border-bottom: 29px solid #ED0925;
+    z-index: 1;
+}
+ion-button.like-me {
+    position: absolute;
+    right: 0px;
+    z-index: 99999;
+    width: 30px;
+    height: 30px;
+    --padding-start: 0;
+    --padding-end: 0;
+    top: 0;
+    background: #f3f5f9;
+    border-radius: 50%;
+    font-size: 10px;
+}
+h5.reviews {
+    font-size: 12px;
+    line-height: 16px;
+    color: #878787;
+    padding: 0 5px;
+}
+.pdbtn
+{
+    padding-bottom:10px;
+}
