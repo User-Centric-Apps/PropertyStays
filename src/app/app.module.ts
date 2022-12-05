@@ -29,6 +29,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { PayPal } from '@ionic-native/paypal/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { SafeHtmlPipe } from './safe-html.pipe';
@@ -61,6 +62,7 @@ import { Stripe } from '@ionic-native/stripe/ngx';
     Facebook,
     PayPal,
     SocialSharing,
+    FCM,
     FingerprintAIO,
     UniqueDeviceID,
     Stripe
